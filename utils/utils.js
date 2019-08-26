@@ -1,0 +1,2 @@
+name = "";
+module.exports = name;

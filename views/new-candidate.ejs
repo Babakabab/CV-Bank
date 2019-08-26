@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>CV Bank</title>
+	<style type="text/css">
+		.form-info{
+			display:flex;
+			margin: auto;
+			justify-content: center;
+		}
+		h1{
+			text-align: center;
+		}
+		
+		.right-box{
+			text-align: left;
+			
+		}
+		body{
+			background-color: #05868e;
+		}
+		form{
+			background-color: white;
+		}
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1> Candidate Information</h1>
+	<div id="main-form form-group" >
+
+	<form id="candidate-data" action ="/candidate/new" method="POST">
+		<div id="name" class="form-info">
+			<div class="form-entity left-box">
+				<label for="first-name">First Name: <input type="text" name="first-name" class="form-control" placeholder="First Name"></label>
+			</div>
+			<div class="form-entity right-box" >
+				<label for="last-name">Surname: <input type="text" name="last-name" class="form-control" placeholder="Last Name"></label>
+			</div>
+		</div>
+
+		<div id="score" class="form-info left-box">
+			<div class="form-entity">
+				<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score" class="form-control" ></label>
+			</div>
+		
+
+		<div class="form-entity right-box">
+			<label for="degree">Degree: <input name="degree" type="text" placeholder="Degree" class="form-control" ></label>
+		</div>
+		</div>
+
+		<div id="uni" class="form-info left-box">
+			<div class="form-entity">
+				<label for="uni">University <input type="text" name="uni" placeholder="University" class="form-control" ></label>
+			</div>
+			<div class="form-entity right-box">
+			<label for="position">Position: <input name="position" type="text" placeholder="Position" class="form-control"></label>
+		</div>
+		</div>
+		<div class="form-info left-box">
+			<div class="form-entity">
+				<label for="salary">Expected Salary: <input type="text" name="salary" placeholder="Salary" class="form-control" ></label>
+			</div>
+			<div class="form-entity right-box">
+				<label for="key-words">Key Words: <input type="text" name="key-words" placeholder="Key Words" class="form-control" ></label>
+			</div>
+		</div>
+
+		<div class="form-info">
+			<div id="save-candidate" class="left-box">
+				<button class="btn btn-primary">Save Candidate</button>
+			</div>
+			<div class="right-box">
+				<input type="file" name="myFile" style="padding-left: 5vw;" id="uploader">
+			</div>
+		</div>
+		<div class="">
+			<img src="#" id="uploaded-img" style="display: none;" />
+		</div>
+		</form>
+	</div>
+	
+
+</body>
+</html>

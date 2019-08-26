@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>CV Bank</title>
+	<style type="text/css">
+		.form-info {
+			display: flex;
+			justify-content: center;
+			max-width: 800px;
+			width: 50%;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		/*.right-box{
+			text-align: left;
+			
+		}*/
+		body {}
+
+		.buttons {
+			display: flex;
+			max-width: 40%;
+			margin-right: auto;
+			margin-left: auto;
+			margin: auto;
+			display: flex;
+
+
+
+		}
+
+		button {
+			white-space: normal;
+			word-wrap: break-word;
+		}
+
+		.btn {
+			white-space: nowrap;
+			text-align: center;
+		}
+
+		textarea {
+			width: 400px;
+			margin: auto auto;
+
+		}
+
+
+		h1 {
+			margin-top: 10%;
+		}
+
+		form {
+			margin-top: 5%;
+		}
+
+		#file-name {
+			width: 100%;
+		}
+
+		.nav ul {
+			margin: 1rem 0;
+		}
+
+		.nav {
+			display: flex;
+			justify-content: space-around;
+			background: black;
+			/* text-align: center; */
+
+		}
+
+		li {
+			display: inline;
+			/* text-align: center; */
+			vertical-align: 50;
+
+		}
+
+		/* Add a black background color to the top navigation */
+		.topnav {
+			position: relative;
+			background-color: #333;
+			overflow: hidden;
+		}
+
+		/* Style the links inside the navigation bar */
+		.topnav a {
+			float: left;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		/* Change the color of links on hover */
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+
+		/* Add a color to the active/current link */
+		.topnav a.active {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		/* Centered section inside the top navigation */
+		.topnav-centered a {
+			float: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		/* Right-aligned section inside the top navigation */
+		.topnav-right {
+			float: right;
+		}
+
+		/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+		@media screen and (max-width: 600px) {
+
+			.topnav a,
+			.topnav-right {
+				float: none;
+				display: block;
+			}
+
+			.topnav-centered a {
+				position: relative;
+				top: 0;
+				left: 0;
+				transform: none;
+			}
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<!-- Top navigation -->
+	<div class="topnav">
+
+		<!-- Centered link -->
+
+
+		<!-- Left-aligned links (default) -->
+		<a href="/candidate/new">Add a Candidate</a>
+		<a href="/search-candidates">Search</a>
+	</div>
+
+	<div class="container">
+		<h1> Add a Candidate to the Database</h1>
+		<div id="main-form form-group">
+
+			<form id="candidate-data" action="/candidate/new" method="POST" enctype="multipart/form-data">
+				<div id="name" class="form-info left-box">
+					<div class="form-entity">
+						<label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
+								placeholder="First Name"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="last-name">Surname: <input type="text" name="last-name" class="form-control"
+								placeholder="Last Name"></label>
+					</div>
+				</div>
+				<div class="form-info">
+					<div class="form-entity left-box">
+						<label for="gender">Gender: <input type="text" name="gender" class="form-control"
+								placeholder="Gender"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="email">E-mail: <input type="text" name="email" class="form-control"
+								placeholder="E-mail"></label>
+					</div>
+				</div>
+
+				<div id="score" class="form-info ">
+					<div class="form-entity left-box">
+						<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score"
+								class="form-control"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="degree">Degree: 
+							<input name="degree" type="text" placeholder="Degree"
+								class="form-control">
+						</label>
+					</div>
+				</div>
+
+				<div id="uni" class="form-info">
+					<div class="form-entity left-box">
+						<label for="uni">University <input type="text" name="uni" placeholder="University"
+								class="form-control"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="position">Position: <input name="position" type="text" placeholder="Position"
+								class="form-control"></label>
+					</div>
+				</div>
+				<div class="form-info ">
+					<div class="form-entity left-box">
+						<label for="salary">Expected Salary: <input type="text" name="salary" placeholder="Salary"
+								class="form-control"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="key-words">Key Words: <input type="text" name="key-words" placeholder="Key Words"
+								class="form-control"></label>
+					</div>
+				</div>
+
+				<div class="form-info ">
+					<div class="form-entity left-box">
+						<label for="interviewer">Interviewer: <input type="text" name="interviewer"
+								placeholder="Interviewing Consultant" class="form-control"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="cv-type">Data Enterer: <input type="text" name="data-enterer"
+								placeholder="This Will be dropdown" class="form-control"></label>
+					</div>
+				</div>
+				
+				<div class="form-info ">
+						<div class="form-entity left-box">
+								<label for="study-field">Field of Study: <input type="text"
+									name="study-field" class="form-control" placeholder="Field of Study"></label>
+							</div>
+						<div class="form-entity right-box">
+							<label for="number-of-inteviews">Number of Interviews: <input type="text"
+									name="number-of-interviews" class="form-control" placeholder="Number of Interviews"></label>
+						</div>
+	
+					</div>
+				<div class="form-info ">
+					<div class="form-entity left-box">
+						<label for="date-of-interview-us">Date of Interview(by us): <input type="date"
+								name="date-of-interview-us" class="form-control"></label>
+					</div>
+
+					<div class="form-entity right-box">
+						<label for="date-of-interview-firm">Date of Interview(The firm): <input type="date"
+								name="date-of-interview-firm" class="form-control"></label>
+					</div>
+				</div>
+				<div class="form-info ">
+					<div class="form-entity left-box">
+						<label for="likert-scale">
+							Likert Score:
+							<input type="number" name="likert-scale" placeholder="Likert Scale Score"
+								class="form-control">
+						</label>
+
+					</div>
+					<div class="form-entity right-box">
+						<label for="file-name">Folder Name:
+							<input type="text" name="folder-name" placeholder="Folder Name" class="form-control">
+						</label>
+					</div>
+				</div>
+				<div>
+						<div class="form-info ">
+								<div class="form-entity left-box">
+										Target Firm:
+									<label for="firm-list"> <input type="text" name="target-firm" id="firm-list" class="form-control"
+											placeholder="Target Company"></label>
+								</div>
+			
+			
+								<div class="form-entity right-box">
+									 <button class ="btn btn-primary"onclick="addFirm(event)"style="vertical-align:text-bottom; height:100%;">Add Firm name</button>
+								</div>
+			
+							</div>
+					<div style="text-align: center;">
+						<textarea type="text" id="notes" name="notes" placeholder="Notes" rows="7"></textarea>
+					</div>
+
+				</div>
+
+				
+				<div class="buttons">
+					<div id="save-candidate" class="left-box">
+						<button class="btn btn-primary">Save Candidate</button>
+					</div>
+					<div class="right-box">
+						<input type="file" name="cv" id="uploader" multiple=""required>
+					</div>
+
+				</div>
+
+				<div class="">
+					<img src="#" id="uploaded-img" style="display: none;" />
+				</div>
+				<input type="text" name="all-firms-list" id="firm-list-invisible" style="display: none">
+		</div>
+		</form>
+
+	</div>
+	<script type="text/javascript">
+		// Not my code
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (event) {
+					$('#uploaded-img').attr('src', e.target.result)
+						.css({ "width": "80%", "height": "auto", "display": "block" });
+					console.log(e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#uploader").change(function () {
+			readURL(this);
+		});
+		const firmList = [];
+		function addFirm(e){
+			e.preventDefault();
+			firmList.push(document.getElementById("firm-list").value);
+			
+			$("#firm-list-invisible").val(firmList.toString());
+			$("#firm-list").val("");
+			console.log("firmlist", firmList);
+		}
+	</script>
+
+</body>
+
+</html>
