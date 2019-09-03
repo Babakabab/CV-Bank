@@ -1,0 +1,6 @@
+mcQuaigParser = (score)=>{
+    const aScores = score.split("-");
+    const parsedScore = {wrong: aScores[0],empty: aScores[1],correct:aScores[2]};
+    return parsedScore;
+}
+module.exports=mcQuaigParser;

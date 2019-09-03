@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -19,6 +20,7 @@
 		h1 {
 			text-align: center;
 		}
+
 
 		.buttons {
 			display: flex;
@@ -123,6 +125,25 @@
 			float: right;
 		}
 
+		.single-firm {
+			margin-right: 5px;
+			margin-left: 5px;
+			border: 1px solid;
+			height: fit-content;
+			padding: 0 4px;
+			border-radius: 4px;
+			background-color: #05868e;
+			color: white;
+		}
+
+		@media screen and (max-width: 990px) {
+			.add-firm-button {
+				margin-top: 24px;
+			}
+		}
+
+
+
 		/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
 		@media screen and (max-width: 600px) {
 
@@ -139,20 +160,40 @@
 				transform: none;
 			}
 		}
+
+		#listed-firms {
+			width: 50%;
+			height: 70px;
+			overflow: auto;
+			max-width: 800px;
+			overflow: auto;
+			display: flex;
+			justify-content: center;
+			margin: 20px auto;
+			border-radius: 10px;
+			padding: 5px;
+			flex-wrap: wrap;
+		}
+
+		.date {
+			width: 180px;
+
+		}
+
+		.date-label {
+			width: 100%;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
-	<!-- Top navigation -->
 	<div class="topnav">
-
-		<!-- Centered link -->
-
-
-		<!-- Left-aligned links (default) -->
 		<a href="/candidate/new">Add a Candidate</a>
 		<a href="/search-candidates">Search</a>
+		<a href="/upload">Upload Folder</a>
 	</div>
 
 	<div class="container">
@@ -163,33 +204,32 @@
 				<div id="name" class="form-info left-box">
 					<div class="form-entity">
 						<label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
-								placeholder="First Name" value =<%=candidate.firstName%> ></label>
+								placeholder="First Name"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="last-name">Surname: <input type="text" name="last-name" class="form-control"
-                             placeholder="Last Name"value =<%=candidate.lastName%>></label>
+						<label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
+								placeholder="Last Name"></label>
 					</div>
 				</div>
 				<div class="form-info">
 					<div class="form-entity left-box">
 						<label for="gender">Gender: <input type="text" name="gender" class="form-control"
-                           placeholder="Gender" value =<%=candidate.gender%> ></label>
+								placeholder="Gender"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="email">E-mail: <input type="text" name="email" class="form-control" placeholder="E-mail"
-                            value =<%=candidate.email%> ></label>
+						<label for="email">E-mail: <input type="text" name="email" class="form-control"
+								placeholder="E-mail"></label>
 					</div>
 				</div>
 
 				<div id="score" class="form-info ">
 					<div class="form-entity left-box">
 						<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score"
-								class="form-control" value =<%=candidate.score%>></label>
+								class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="degree">Degree: 
-							<input name="degree" type="text" placeholder="Degree"
-								class="form-control" value =<%=candidate.degree%>>
+						<label for="degree">Degree:
+							<input name="degree" type="text" placeholder="Degree" class="form-control">
 						</label>
 					</div>
 				</div>
@@ -197,55 +237,60 @@
 				<div id="uni" class="form-info">
 					<div class="form-entity left-box">
 						<label for="uni">University <input type="text" name="uni" placeholder="University"
-								class="form-control"value =<%=candidate.uni%>></label>
+								class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="position">Position: <input name="position" type="text" placeholder="Position"
-								class="form-control" value =<%=candidate.position%>></label>
+								class="form-control"></label>
 					</div>
 				</div>
 				<div class="form-info ">
 					<div class="form-entity left-box">
 						<label for="salary">Expected Salary: <input type="text" name="salary" placeholder="Salary"
-								class="form-control" value =<%=candidate.salary%>></label>
+								class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="key-words">Key Words: <input type="text" name="key-words" placeholder="Key Words"
-								class="form-control" value =<%=candidate.keyWords%>></label>
+								class="form-control"></label>
 					</div>
 				</div>
 
 				<div class="form-info ">
 					<div class="form-entity left-box">
 						<label for="interviewer">Interviewer: <input type="text" name="interviewer"
-								placeholder="Interviewing Consultant" class="form-control" value =<%=candidate.interviewer%>></label>
+								placeholder="Interviewing Consultant" class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="data-enterer">Data Enterer: <input type="text" name="data-enterer"
-								placeholder="This Will be dropdown" class="form-control"value =<%=candidate.dataEnterer%>></label>
+								placeholder="This Will be dropdown" class="form-control"></label>
 					</div>
 				</div>
-				
-				<div class="form-info ">
-						<div class="form-entity left-box">
-								<label for="study-field">Field of Study: <input type="text"
-									name="study-field" class="form-control" placeholder="Field of Study"></label>
-							</div>
-						<div class="form-entity right-box">
-							<label for="number-of-inteviews">Number of Interviews: <input type="text"
-									name="number-of-interviews" class="form-control" placeholder="Number of Interviews"></label>
-						</div>
-	
-					</div>
+
 				<div class="form-info ">
 					<div class="form-entity left-box">
-						<label for="date-of-interview-us">Date of Interview(by us): <input type="date"
+						<label for="study-field">Field of Study: <input type="text" name="study-field"
+								class="form-control" placeholder="Field of Study"></label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="number-of-inteviews">Number of Interviews: <input type="text"
+								name="number-of-interviews" class="form-control" placeholder="Number of Interviews"
+								id="interviewCount"></label><button class="btn btn-primary" id="addNumOfInterviews"
+							onclick="addFirmInfoInputs(event)"> Add</button>
+					</div>
+
+				</div>
+				<div id="interviewInfo">
+
+				</div>
+				<div class="form-info ">
+					<div class="form-entity left-box date">
+						<label class="date-label" for="date-of-interview-us">Date of Interview(us): <input type="date"
 								name="date-of-interview-us" class="form-control"></label>
 					</div>
 
-					<div class="form-entity right-box">
-						<label for="date-of-interview-firm">Date of Interview(The firm): <input type="date"
-								name="date-of-interview-firm" class="form-control"></label>
+					<div class="form-entity right-box date">
+						<label class="date-label" for="date-of-interview-firm">Date of Interview(firm): <input
+								type="date" name="date-of-interview-firm" class="form-control"></label>
 					</div>
 				</div>
 				<div class="form-info ">
@@ -258,38 +303,42 @@
 
 					</div>
 					<div class="form-entity right-box">
-						<label for="file-name">Folder Name:
+						<label for="folder-name">Folder Name:
 							<input type="text" name="folder-name" placeholder="Folder Name" class="form-control">
 						</label>
 					</div>
 				</div>
 				<div>
-						<div class="form-info ">
-								<div class="form-entity left-box">
-										Target Firm:
-									<label for="firm-list"> <input type="text" name="target-firm" id="firm-list" class="form-control"
-											placeholder="Target Company"></label>
-								</div>
-			
-			
-								<div class="form-entity right-box">
-									 <button class ="btn btn-primary"onclick="addFirm()"style="vertical-align:text-bottom; height:100%;">Add Firm name</button>
-								</div>
-			
-							</div>
+					<div class="form-info ">
+						<div class="form-entity left-box">
+							Target Firms:
+							<label for="firm-list"> <input type="text" name="firm-list" id="firm-list"
+									class="form-control" placeholder="Target Companies" maxlength="30"></label>
+						</div>
+
+
+						<div class="form-entity right-box">
+							<button class="btn btn-primary add-firm-button" onclick="addFirm(event)"
+								style="vertical-align:text-bottom;">Add Firm name</button>
+						</div>
+
+					</div>
+					<div>
+						<div id="listed-firms"></div>
+					</div>
 					<div style="text-align: center;">
 						<textarea type="text" id="notes" name="notes" placeholder="Notes" rows="7"></textarea>
 					</div>
 
 				</div>
 
-				
+
 				<div class="buttons">
 					<div id="save-candidate" class="left-box">
 						<button class="btn btn-primary">Save Candidate</button>
 					</div>
 					<div class="right-box">
-						<input type="file" name="cv" id="uploader" multiple=""required>
+						<input type="file" name="cv" id="uploader" multiple="" required>
 					</div>
 
 				</div>
@@ -307,7 +356,7 @@
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
-				reader.onload = function (e) {
+				reader.onload = function (event) {
 					$('#uploaded-img').attr('src', e.target.result)
 						.css({ "width": "80%", "height": "auto", "display": "block" });
 					console.log(e.target.result);
@@ -321,26 +370,94 @@
 			readURL(this);
 		});
 		const firmList = [];
-		function addFirm(){
-			
-			firmList.push(document.getElementById("firm-list").value);
-			
-			$("#firm-list-invisible").val(firmList.toString());
+		function addFirm(e) {
+
+			e.preventDefault();
+			const name = document.getElementById("firm-list").value;
+			firmList.push(name);
+			if (name) {
+				$("#listed-firms").append(`<span id="${name}" class="single-firm">${name}
+					<span onclick="deleteFirm(this)" style="margin-left:10px; cursor:pointer;">x</span></span>`);
+			}
 			$("#firm-list").val("");
 			console.log("firmlist", firmList);
-        }
-        const highlighter = function(){
-            const inputFields = document.getElementsByTagName("input");
-            console.log(inputFields);
-             for (e in inputFields){
-                if (inputFields[e].value){
-                    inputFields[e].style.color = "red";
-                }
-                console.log(inputFields[e]);
 
-             }
-        }
-        window.onload = highlighter();
+		}
+		function deleteFirm(element) {
+			const id = $(element).parent().attr('id');
+			const index = firmList.indexOf(id);
+			if (index > -1) {
+				firmList.splice(index, 1);
+
+			}
+
+			console.log('firmlist', firmList);
+			$(element).parent().remove();
+
+
+		}
+		function deleteInterviewInfo(element){
+			console.log(element);
+			$(element).parent().parent().remove();
+
+		}
+		function addFirmInfoInputs(element) {
+			element.preventDefault();
+
+			interviewCount = parseInt(document.getElementById("interviewCount").value);
+			interviewInputAreasCount = document.getElementById("interviewInfo").childElementCount;
+			console.log(interviewCount);
+			if (interviewCount > 6){
+				alert('The total number of interviews can not be over 6');
+			}
+			else {
+				if (interviewCount && !interviewInputAreasCount) {
+				for (let i = 0; i < interviewCount; i++) {
+
+					
+						$("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
+													<label for="firmName${i}">
+																	Firm Name:
+													<input type="text" name="firmName${i}" placeholder="Firm Name" class="form-control">
+												</label>
+
+											</div>
+											<div class="form-entity right-box">
+												<label for="interviewDateFirm${i}">Date of Interview:
+													<input type="date" name="interviewDateFirm${i}" class="form-control">
+												</label>
+												
+												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)">
+											</div></div>`);
+					}
+				}
+				
+				else if(interviewInputAreasCount<interviewCount){
+						for (let i = 0; i < interviewCount-interviewInputAreasCount; i++) {
+
+					
+						$("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
+													<label for="firmName${i}">
+																	Firm Name:
+													<input type="text" name="firmName${i}" placeholder="Firm Name" class="form-control">
+												</label>
+
+											</div>
+											<div class="form-entity right-box">
+												<label for="interviewDateFirm${i}">Date of Interview:
+													<input type="date" name="interviewDateFirm${i}" class="form-control">
+												</label>
+												<!--<span style="font-size:em; color:red">DELETE</span>-->
+												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)" >
+											</div></div>`);
+					}
+					}
+				}
+				
+				console.log(interviewInputAreasCount);
+			}
+		
+		
 	</script>
 
 </body>

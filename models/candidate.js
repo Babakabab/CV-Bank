@@ -10,7 +10,7 @@ var candidateSchema = new mongoose.Schema({
 	email               : String,
 	gender              : String,
 	position            : String,
-	score               : String,
+	score               : Object,
 	uni                 : String,
 	degree              : String,
 	keyWords            : String,
@@ -24,7 +24,7 @@ var candidateSchema = new mongoose.Schema({
 	likertScale	        : Number,    
 	numberOfInterviews  : Number,
 	targetFirmList      : Array ,
-	cvURL               : Array
+	cvURLs              : Array
 
 });
 candidateSchema.index({firstName:1,lastName:1,uni:1,score:1},{unique:true});

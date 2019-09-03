@@ -1,15 +1,15 @@
 const   passport               = require('passport'),
         LocalStrategy          = require("passport-local"),
-        registerUser           = require('./registerUser'),
+        registerUser           = require('./models/registerUser'),
         User                   = require("./models/user"),
-        saveCandUpCV           = require('./utils/cloudinary-upload.js'),
-		upload                 = require('./multer-config'),
-		search                 = require('./searchType'),
-		bodyParser             = require('body-parser'),
-        fileNameParserUploader = require('./fileNameParserUploader'),
-		express                = require('express'),
-		candidateDeleter       = require('./utils/candidateDeleter'),
+		saveCandUpCV           = require('./models/cloudinary-upload.js'),
+		fileNameParserUploader = require('./models/fileNameParserUploader'),
+		search                 = require('./models/searchType'),
+        candidateDeleter       = require('./models/candidateDeleter'),
 		Candidate              = require('./models/candidate'),
+		upload                 = require('./configs/multer-config'),
+		bodyParser             = require('body-parser'),
+		express                = require('express'),
 		app                    = express();
 		
 const router = express.Router();
@@ -94,6 +94,7 @@ router.post("/candidate/:id/delete",(req,res)=>{
 	res.render('main-page');
 
 });
+//Candidate edit route
 router.get("/candidate/:id/edit",(req,res)=>{
 	Candidate.findOne({_id:req.params.id})
 	.then((candidate)=>{res.render('candidate-edit',{candidate:candidate})
@@ -102,9 +103,6 @@ router.get("/candidate/:id/edit",(req,res)=>{
 	
 });
 //Route for any wrong URL 
-router.get("/ajaxtest", function(req,res){
-	res.send("HELLO!!");
-});
 router.get("*", function(req,res){
 	res.send("YOURE a STAR");
 });
