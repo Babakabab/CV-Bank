@@ -16,23 +16,24 @@ const candidatesInfoParser = function (files){
                               firstName          : candidate[0],
                               lastName           : candidate[1],
                               score              : mcQuaigParser(candidate[2]),
-                              position           : candidate[3],
+                              wantedPosition     : candidate[3],
                               uni                : candidate[4],
                               folderName         : candidate[5],
                               notes              : candidate[6],
-                              email              : "",
-                              gender             : "",
-                              keyWords           : "",
-                              degree             : "",
-                              interviewer        : "",
-                              dataEnterer        : "",
-                              salary             : "",
-                              dateOfInterviewFirm: "",
-                              dateOfInterviewUs  : "",
-                              targetFirm         : "",
-                              likertScore        : "",
-                              numberOfinterviews : "",
-                              cvURLs             : []};
+                            //   email              : "",
+                            //   gender             : "",
+                            //   keyWords           : "",
+                            //   degree             : "",
+                            //   interviewer        : "",
+                            //   dataEnterer        : "",
+                            //   salary             : "",
+                            //   dateOfInterviewFirm: "",
+                            //   aInterviewsInfo    : [],
+                            //   targetFirm         : "",
+                            //   likertScore        : "",
+                            //   numberOfinterviews : "",
+                            //   cvURLs             : []
+                        };
                     
                     candidateList.push(oCandidate);
                         });

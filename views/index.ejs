@@ -221,36 +221,49 @@
 					</div>
 				</div>
 
+				<div class="form-info">
+					<div class="form-entity left-box">
+						<label for="degree">Degree:
+							<input name="degree" type="text" placeholder="Degree" class="form-control">
+						</label>
+					</div>
+					<div class="form-entity right-box">
+						<label for="uni">University <input type="text" name="uni" placeholder="University"
+								class="form-control"></label>
+					</div>
+				</div>
 				<div id="score" class="form-info ">
 					<div class="form-entity left-box">
 						<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score"
 								class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="degree">Degree:
-							<input name="degree" type="text" placeholder="Degree" class="form-control">
+						<label for="likert-scale">
+							Likert Score:
+							<input type="number" name="likert-scale" placeholder="Likert Scale Score"
+								class="form-control">
 						</label>
 					</div>
 				</div>
 
 				<div id="uni" class="form-info">
 					<div class="form-entity left-box">
-						<label for="uni">University <input type="text" name="uni" placeholder="University"
-								class="form-control"></label>
+						<label for="current-position">Current/last Position<input type="text" class="form-control"
+								name="current-position" placeholder="Current Position"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="position">Position: <input name="position" type="text" placeholder="Position"
+						<label for="position">Wanted Position: <input name="position" type="text" placeholder="Position"
 								class="form-control"></label>
 					</div>
 				</div>
 				<div class="form-info ">
 					<div class="form-entity left-box">
-						<label for="salary">Expected Salary: <input type="text" name="salary" placeholder="Salary"
-								class="form-control"></label>
+						<label for="last-salary">Last Salary: <input type="number" name="salary"
+								placeholder="Last Salary" class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="key-words">Key Words: <input type="text" name="key-words" placeholder="Key Words"
-								class="form-control"></label>
+						<label for="expected-salary">Expected Salary:<input type="text" name="expected-salary"
+								placeholder="Expected Salary" class="form-control"></label>
 					</div>
 				</div>
 
@@ -271,8 +284,8 @@
 								class="form-control" placeholder="Field of Study"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label class="date-label" for="date-of-interview-us">Date of Interview(us): <input type="date"
-								name="date-of-interview-us" class="form-control"></label>
+						<label for="tech-used">Technologies Used <input type="text" name="tech-used"
+								class="form-control" placeholder="Technologies Used"></label>
 
 					</div>
 
@@ -290,11 +303,8 @@
 
 				<div class="form-info ">
 					<div class="form-entity left-box">
-						<label for="likert-scale">
-							Likert Score:
-							<input type="number" name="likert-scale" placeholder="Likert Scale Score"
-								class="form-control">
-						</label>
+						<label class="date-label" for="date-of-interview-us">Date of Interview(us): <input type="date"
+								name="date-of-interview-us" class="form-control"></label>
 
 					</div>
 					<div class="form-entity right-box">
@@ -306,20 +316,29 @@
 				<div>
 					<div class="form-info ">
 						<div class="form-entity left-box">
-							Target Firms:
-							<label for="firm-list"> <input type="text" name="firm-list" id="firm-list"
-									class="form-control" placeholder="Target Companies" maxlength="30"></label>
+							<label for="languages">Languages Spoken:<input type="text" name="languages"
+									placeholder="languages" class="form-control"></label>
 						</div>
 
 
 						<div class="form-entity right-box">
-							<button class="btn btn-primary add-button" onclick="addFirm(event)"
-								style="vertical-align:text-bottom;">Add Firm name</button>
+							<label for="keyWords">
+								Keywords:<input type="text" placeholder="Keywords" class="form-control"
+									name="key-words">
+							</label>
 						</div>
 
 					</div>
 					<div>
 						<div id="listed-firms"></div>
+					</div>
+					<div class="form-info">
+						<div class="form-entity left-box">
+							<label></label>
+						</div>
+						<div class="form-entity right-box">
+
+						</div>
 					</div>
 					<div style="text-align: center;">
 						<textarea type="text" id="notes" name="notes" placeholder="Notes" rows="7"></textarea>
@@ -351,10 +370,10 @@
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
-				reader.onload = function (event) {
+				reader.onload = function (e) {
 					$('#uploaded-img').attr('src', e.target.result)
 						.css({ "width": "80%", "height": "auto", "display": "block" });
-					console.log(e.target.result);
+					
 				}
 
 				reader.readAsDataURL(input.files[0]);

@@ -10,6 +10,9 @@ function saveCandUpCV(req) {
 
 	//Upload the CV onto the cloud
 	for (let i = 0; i < req.files.length; i++) {
+		req.files.map((file)=>{
+
+		});
 		
 		cloudinary.uploader.upload(req.files[i].path, {
 			public_id: req.body['first-name'] + " "
@@ -38,7 +41,7 @@ function saveCandUpCV(req) {
 	}
 	
 	
-	// Take the user input and store them to pass it to the database
+	
 
 
 }
