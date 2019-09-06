@@ -43,7 +43,7 @@ router.post("/search-candidates",function(req,res){
 
 	});
 	
-});
+}); 
 
 //Routing for making a new candidate
 router.get('/candidate/new', function(req,res){
@@ -53,7 +53,9 @@ router.get('/candidate/new', function(req,res){
 //This post method adds a candidate into our database
 router.post('/candidate/new', upload.array('cv',8), function(req,res){
 	//Upload the CV to the cloud, wait for the program to finish, create a candidate and save in the database
+	console.log(req.body);
 	saveCandUpCV(req);
+	
 	//Rerender the page to enter another candidate
 	res.render('index');
 });

@@ -184,6 +184,9 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
+		#addNumOfInterviews{
+			margin-top: 24px;
+		}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
@@ -203,17 +206,17 @@
 				<div id="name" class="form-info left-box">
 					<div class="form-entity">
 						<label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
-								placeholder="First Name"></label>
+								placeholder="First Name" required></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
-								placeholder="Last Name"></label>
+								placeholder="Last Name" required></label>
 					</div>
 				</div>
 				<div class="form-info">
 					<div class="form-entity left-box">
 						<label for="gender">Gender: <input type="text" name="gender" class="form-control"
-								placeholder="Gender"></label>
+								placeholder="Gender" required></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="email">E-mail: <input type="text" name="email" class="form-control"
@@ -252,7 +255,7 @@
 								name="current-position" placeholder="Current Position"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="position">Wanted Position: <input name="position" type="text" placeholder="Position"
+						<label for="wanted-position">Wanted Position: <input name="wanted-position" type="text" placeholder="Position"
 								class="form-control"></label>
 					</div>
 				</div>
@@ -262,7 +265,7 @@
 								placeholder="Last Salary" class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="expected-salary">Expected Salary:<input type="text" name="expected-salary"
+						<label for="expected-salary">Expected Salary:<input type="number" name="expected-salary"
 								placeholder="Expected Salary" class="form-control"></label>
 					</div>
 				</div>
@@ -280,7 +283,7 @@
 
 				<div class="form-info ">
 					<div class="form-entity left-box">
-						<label for="study-field">Field of Study: <input type="text" name="study-field"
+						<label for="field-of-study">Field of Study: <input type="text" name="field-of-study"
 								class="form-control" placeholder="Field of Study"></label>
 					</div>
 					<div class="form-entity right-box">
@@ -291,7 +294,7 @@
 
 				</div>
 				<div class="form-info">
-					<label for="number-of-inteviews">Number of Interviews: <input type="text"
+					<label for="number-of-inteviews">Number of Interviews: <input type="number"
 							name="number-of-interviews" class="form-control" placeholder="Number of Interviews"
 							id="interviewCount"></label><button class="btn btn-primary add-button"
 						id="addNumOfInterviews" onclick="addFirmInfoInputs(event)"
@@ -322,19 +325,18 @@
 
 
 						<div class="form-entity right-box">
-							<label for="keyWords">
-								Keywords:<input type="text" placeholder="Keywords" class="form-control"
-									name="key-words">
-							</label>
+								<label for="experience">Experience:<input name="experience" type="number" class="form-control" placeholder="Experience, in years"></label>
 						</div>
 
 					</div>
-					<div>
-						<div id="listed-firms"></div>
-					</div>
+					
 					<div class="form-info">
 						<div class="form-entity left-box">
-							<label></label>
+								<label for="keyWords">
+										Keywords:<input type="text" placeholder="Keywords" class="form-control"
+											name="key-words">
+									</label>
+							
 						</div>
 						<div class="form-entity right-box">
 
@@ -349,7 +351,7 @@
 
 				<div class="buttons">
 					<div class="left-box">
-						<button class="btn btn-primary" id="save-candidate">Save Candidate</button>
+						<button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save Candidate</button>
 					</div>
 					<div class="right-box">
 						<input type="file" name="cv" id="uploader" multiple="" required>
@@ -432,13 +434,13 @@
 						$("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
-													<input type="text" name="firmName${i}" placeholder="Firm Name" class="form-control">
+													<input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control">
 												</label>
 
 											</div>
 											<div class="form-entity right-box">
 												<label for="interviewDateFirm${i}">Date of Interview:
-													<input type="date" name="interviewDateFirm${i}" class="form-control">
+													<input type="date" name="interview-date-firm${i}" class="form-control">
 												</label>
 												
 												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)">
@@ -470,28 +472,68 @@
 
 			console.log(interviewInputAreasCount);
 		}
-		// function saveCandidate(e){
-		// 	e.preventDefault();
-		// 	let formData = new FormData();
-		// 	formData.append('firstName')
-		// 	formData.append('lastName' )
-		// 	formData.append('email')
-		// 	formData.append('gender')
-		// 	formData.append('position')
-		// 	formData.append('uni')
-		// 	formData.append('degree')
-		// 	formData.append('keyWords')
-		// 	formData.append('folderName')
-		// 	formData.append('interviewer')
-		// 	formData.append('dataEnterer')
-		// 	formData.append('dateOfInterviews')
-		// 	formData.append('score')
-		// 	formData.append('aInterviewsInfo')
-		// 	formData.append('targetFirmList')
-		// 	formData.append('keyWords')
-		// }
+		function saveCandidate(e){
+			//console.log();
+			e.preventDefault();
+			let form = document.getElementById('candidate-data');
+			
+			//console.log(form.children());
+			//document.getElementById("candidate-data");
+			// for (element in form){
+			// 	console.log(element);
+			// }
+			let formData = new FormData(form);
 
 
+			// formData.append('first-name',$('input[name="first-name"]').val());
+			// formData.append('last-name',$('input[name="last-name"]').val());
+			// formData.append('email',$('input[name="email"]').val());
+			// formData.append('gender',$('input[name="gender"]').val());
+			// formData.append('degree',$('input[name="degree"]').val());
+			// formData.append('uni',$('input[name="uni"]').val());
+			// formData.append('score',$('input[name="score"]').val());
+			// formData.append('likert-scale',$('input[name="likert-scale"]').val());
+			// formData.append('current-position',$('input[name="current-position"]').val());
+			// formData.append('wanted-position',$('input[name="wanted-position"]').val());
+			// formData.append('last-salary',$('input[name="last-salary"]').val());
+			// formData.append('expected-salary',$('input[name="expected-salary"]').val());
+			// formData.append('interviewer',$('input[name="interviewer"]').val());
+			// formData.append('data-enterer',$('input[name="data-enterer"]').val());
+			// formData.append('field-of-study',$('input[name="field-of-study"]').val());
+			// formData.append('tech-used',$('input[name="tech-used"]').val());
+			// formData.append('date-of-interview-us',$('input[name="date-of-interview-us"]').val());
+			// formData.append('folder-name',$('input[name="folder-name"]').val());
+			// formData.append('languages',$('input[name="languages"]').val());
+			// formData.append('experience',$('input[name="experience"]').val());
+			// formData.append('key-words',$('input[name="key-words"]').val());
+			// formData.append('notes',$('input[name="notes"]').val());
+			// if ($('interviewInfo').children()){
+			// 	console.log('hello');
+			// 	for(let i=0;i<$('input[name="number-of-interviews"]').val();i++){
+			// 		console.log(`firm-name${i}`);
+			// 		formData.append(`firm-name${i}`,$(`input[name="firm-name${i}"]`).val());
+			// 		formData.append(`interview-date-firm${i}`,$(`input[name="interview-date-firm${i}"]`).val());
+
+			// 	}
+			// }
+			// formData.append('aCV')
+			
+			for(let pair of formData.entries()){
+				console.log(pair[0] +'-'+pair[1]);
+			}
+			// let validation = ($('input[name="first-name"]').val() &&
+			fetch("/candidate/new",{
+				body: formData,
+				method:"POST"
+					});
+					
+
+			
+			// for (let i=0;t<$)
+			
+		}
+
+			
 
 	</script>
 
