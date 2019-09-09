@@ -16,12 +16,14 @@ function createCandidate(oCandidate,aCvURLs,cb){
           interviewer             = oCandidate.interviewer.toLowerCase(),
 		  dataEnterer             = oCandidate['data-enterer'].toLowerCase(),
           fieldOfStudy            = oCandidate['field-of-study'].toLowerCase(),
-          techUsed                = oCandidate['tech-used'].toLowerCase().split(","),
+          //We first turn the string into all lower case. We then split the string by the commas, and finally we get rid of whitespaces at the end and beinning of entries
+          techUsed                = oCandidate['tech-used'].toLowerCase().split(",").map((techUsed)=> {return techUsed.trim();}),
           aInterviewsInfo         = []
           dateOfInterviewUs       = oCandidate['date-of-interview-us'],
-          folderName              = oCandidate['folder-name'].toLowerCase(),
-          languages               = oCandidate.languages.toLowerCase().split(","),
+          phoneNumber             = oCandidate['phone-number'],
+          languages               = oCandidate.languages.toLowerCase().split(",").map((language)=>{return language.trim();}),
           experience              = oCandidate.experience,
+          folderName              = oCandidate['folder-name'].toLowerCase(),
 		  keyWords                = oCandidate['key-words'].toLowerCase(),
 		  notes                   = oCandidate.notes.toLowerCase(),
           aCvURLs                 = aCvURLs; 
@@ -53,6 +55,7 @@ console.log(aInterviewsInfo);
          techUsed         ,
          aInterviewsInfo  ,
          dateOfInterviewUs,
+         phoneNumber      ,
          folderName       ,
          languages        ,
          experience       ,

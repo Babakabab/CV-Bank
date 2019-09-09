@@ -23,6 +23,7 @@ var candidateSchema = new mongoose.Schema({
 	lastSalary          : Number,
 	likertScale	        : Number,    
 	experience          : Number,
+	phoneNumber			: Number,
 	score               : Object,
 	languages		    : Array ,
 	techUsed		    : Array ,

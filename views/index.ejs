@@ -184,7 +184,8 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
-		#addNumOfInterviews{
+
+		#addNumOfInterviews {
 			margin-top: 24px;
 		}
 	</style>
@@ -205,22 +206,22 @@
 			<form id="candidate-data" action="/candidate/new" method="POST" enctype="multipart/form-data">
 				<div id="name" class="form-info left-box">
 					<div class="form-entity">
-						<label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
-								placeholder="First Name" required></label>
+						<label for="first-name">First Name: <input type="text" id="first-name" name="first-name"
+								class="form-control" placeholder="First Name" required></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
-								placeholder="Last Name" required></label>
+						<label for="last-name">Last name: <input type="text" id="last-name" name="last-name"
+								class="form-control" placeholder="Last Name" required></label>
 					</div>
 				</div>
 				<div class="form-info">
 					<div class="form-entity left-box">
-						<label for="gender">Gender: <input type="text" name="gender" class="form-control"
+						<label for="gender">Gender: <input type="text" name="gender" id="gender" class="form-control"
 								placeholder="Gender" required></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="email">E-mail: <input type="text" name="email" class="form-control"
-								placeholder="E-mail"></label>
+						<label for="email">E-mail: <input type="text" id="email" name="email" id="email"
+								class="form-control" placeholder="E-mail"></label>
 					</div>
 				</div>
 
@@ -235,10 +236,10 @@
 								class="form-control"></label>
 					</div>
 				</div>
-				<div id="score" class="form-info ">
+				<div id="mcQuaig-score" class="form-info ">
 					<div class="form-entity left-box">
-						<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score"
-								class="form-control"></label>
+						<label for="mcQuaig-score">McQuaig Score: <input type="text" name="mcQuaig-score"
+								placeholder="Score" class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="likert-scale">
@@ -255,13 +256,13 @@
 								name="current-position" placeholder="Current Position"></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="wanted-position">Wanted Position: <input name="wanted-position" type="text" placeholder="Position"
-								class="form-control"></label>
+						<label for="wanted-position">Wanted Position: <input name="wanted-position" type="text"
+								placeholder="Position" class="form-control"></label>
 					</div>
 				</div>
 				<div class="form-info ">
 					<div class="form-entity left-box">
-						<label for="last-salary">Last Salary: <input type="number" name="salary"
+						<label for="last-salary">Last Salary: <input type="number" name="last-salary"
 								placeholder="Last Salary" class="form-control"></label>
 					</div>
 					<div class="form-entity right-box">
@@ -311,8 +312,10 @@
 
 					</div>
 					<div class="form-entity right-box">
-						<label for="folder-name">Folder Name:
-							<input type="text" name="folder-name" placeholder="Folder Name" class="form-control">
+						<label for="phone-number">
+							Phone Number<input type="tel" class="form-control" id="phone-number"
+								pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" name="phone-number"
+								placeholder="Phone Number">
 						</label>
 					</div>
 				</div>
@@ -325,21 +328,25 @@
 
 
 						<div class="form-entity right-box">
-								<label for="experience">Experience:<input name="experience" type="number" class="form-control" placeholder="Experience, in years"></label>
+							<label for="experience">Experience:<input name="experience" type="number"
+									class="form-control" placeholder="Experience, in years"></label>
 						</div>
 
 					</div>
-					
+
 					<div class="form-info">
 						<div class="form-entity left-box">
-								<label for="keyWords">
-										Keywords:<input type="text" placeholder="Keywords" class="form-control"
-											name="key-words">
-									</label>
-							
+							<label for="folder-name">Folder Name:
+								<input type="text" name="folder-name" placeholder="Folder Name" class="form-control">
+							</label>
+
+
 						</div>
 						<div class="form-entity right-box">
-
+							<label for="keyWords">
+								Keywords:<input type="text" placeholder="Keywords" class="form-control"
+									name="key-words">
+							</label>
 						</div>
 					</div>
 					<div style="text-align: center;">
@@ -351,7 +358,8 @@
 
 				<div class="buttons">
 					<div class="left-box">
-						<button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save Candidate</button>
+						<button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save
+							Candidate</button>
 					</div>
 					<div class="right-box">
 						<input type="file" name="cv" id="uploader" multiple="" required>
@@ -375,7 +383,7 @@
 				reader.onload = function (e) {
 					$('#uploaded-img').attr('src', e.target.result)
 						.css({ "width": "80%", "height": "auto", "display": "block" });
-					
+
 				}
 
 				reader.readAsDataURL(input.files[0]);
@@ -472,68 +480,79 @@
 
 			console.log(interviewInputAreasCount);
 		}
-		function saveCandidate(e){
+		function phoneNumberValidator(phoneNumber) {
+			//We only want to validate it if the field has been filled
+			if (phoneNumber) {
+				let re = /^\d{11}$/;
+				return re.test(phoneNumber);
+			}
+			//if the user hasn't filled in the field, leave him alone lol
+			else {
+
+				return true;
+			}
+		}
+		function emailValidator(email) {
+			//We only want to validate it if the field has been filled
+
+			if (email) {
+				let re = /\S+@\S+\.\S+/;
+				return re.test(email);
+			}
+			//if the user hasn't filled in the field, leave him alone lol
+			else {
+				return true;
+			}
+		}
+		function saveCandidate(e) {
+			emailValidator(document.getElementById('email').value);
 			//console.log();
 			e.preventDefault();
-			let form = document.getElementById('candidate-data');
-			
-			//console.log(form.children());
-			//document.getElementById("candidate-data");
-			// for (element in form){
-			// 	console.log(element);
-			// }
+			let form = document.getElementById('candidate-data')
 			let formData = new FormData(form);
-
-
-			// formData.append('first-name',$('input[name="first-name"]').val());
-			// formData.append('last-name',$('input[name="last-name"]').val());
-			// formData.append('email',$('input[name="email"]').val());
-			// formData.append('gender',$('input[name="gender"]').val());
-			// formData.append('degree',$('input[name="degree"]').val());
-			// formData.append('uni',$('input[name="uni"]').val());
-			// formData.append('score',$('input[name="score"]').val());
-			// formData.append('likert-scale',$('input[name="likert-scale"]').val());
-			// formData.append('current-position',$('input[name="current-position"]').val());
-			// formData.append('wanted-position',$('input[name="wanted-position"]').val());
-			// formData.append('last-salary',$('input[name="last-salary"]').val());
-			// formData.append('expected-salary',$('input[name="expected-salary"]').val());
-			// formData.append('interviewer',$('input[name="interviewer"]').val());
-			// formData.append('data-enterer',$('input[name="data-enterer"]').val());
-			// formData.append('field-of-study',$('input[name="field-of-study"]').val());
-			// formData.append('tech-used',$('input[name="tech-used"]').val());
-			// formData.append('date-of-interview-us',$('input[name="date-of-interview-us"]').val());
-			// formData.append('folder-name',$('input[name="folder-name"]').val());
-			// formData.append('languages',$('input[name="languages"]').val());
-			// formData.append('experience',$('input[name="experience"]').val());
-			// formData.append('key-words',$('input[name="key-words"]').val());
-			// formData.append('notes',$('input[name="notes"]').val());
-			// if ($('interviewInfo').children()){
-			// 	console.log('hello');
-			// 	for(let i=0;i<$('input[name="number-of-interviews"]').val();i++){
-			// 		console.log(`firm-name${i}`);
-			// 		formData.append(`firm-name${i}`,$(`input[name="firm-name${i}"]`).val());
-			// 		formData.append(`interview-date-firm${i}`,$(`input[name="interview-date-firm${i}"]`).val());
-
-			// 	}
-			// }
-			// formData.append('aCV')
-			
-			for(let pair of formData.entries()){
-				console.log(pair[0] +'-'+pair[1]);
+			let isValidated = false;
+			if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value && document.getElementById('uploader').value) {
+				isValidated = true;
 			}
-			// let validation = ($('input[name="first-name"]').val() &&
-			fetch("/candidate/new",{
-				body: formData,
-				method:"POST"
-					});
-					
 
-			
-			// for (let i=0;t<$)
-			
+
+			console.log(isValidated);
+
+			// console.log("firstname",document.getElementByName('first-name').value)
+			// console.log("uploader",document.getElementById('uploader').value);
+			//Send the request if the phone number and E-mail are valid(or empty), and all the required fields are filled in
+			if (emailValidator(document.getElementById('email').value)) {
+				console.log("email is good");
+			}
+			if (phoneNumberValidator(document.getElementById('phone-number').value)) {
+				console.log("phone number is good");
+			}
+			else {
+				console.log("man you messed up the phone number man");
+			}
+			if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
+				fetch("/candidate/new", {
+					body: formData,
+					method: "POST"
+				})
+					.then(console.log("hello"));
+			}
+			else if (!isValidated) {
+				alert('please enter all fields necessary');
+			}
+			else if (!emailValidator(document.getElementById('email').value)) {
+				alert('Please enter a valid E-mail address');
+			}
+			else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
+				alert('Please enter a valid phone number');
+			}
+
+
+
+
 		}
 
-			
+
 
 	</script>
 

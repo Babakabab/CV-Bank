@@ -6,12 +6,15 @@ const 	createCandidate = require('./createCandidate'),
 
 //This function saves candidate into the DB, and uploads the CV
 function saveCandUpCV(req) {
+	console.log("hello");
 	let aCvURLs=[];
 
 	//Upload the CV onto the cloud
+	console.log(req.body);
+	console.log(req.files);
 	for (let i = 0; i < req.files.length; i++) {
 		
-		
+		console.log("hellooooo");
 		cloudinary.uploader.upload(req.files[i].path, {
 			public_id: req.body['first-name'] + " "
 				+ req.body['last-name'] + " " +
