@@ -1,0 +1,11 @@
+const dateToStringParser = function(date){
+    date = new Date(date);
+    let month = date.getMonth()>9?(date.getMonth()+1).toString():"0"+(date.getMonth()+1),
+        day   = date.getDate()>9?date.getDate().toString(): "0"+date.getDate()
+        year  = date.getFullYear();
+    return year+"-"+month+"-"+day;
+    
+    
+
+}
+module.exports= dateToStringParser;

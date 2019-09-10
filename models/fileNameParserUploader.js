@@ -31,7 +31,7 @@ const cvFolderUploader = function(oReq){
                     let cvURL = result.url;
 
                     //Add the uploaded cv to the cvURLs array
-                    candidateList[i].cvURLs.push(cvURL);
+                    candidateList[i].aCvURLs.push(cvURL);
                     console.log(candidateList[i]);
                     //create and add a candidate to the DB
                     Candidate.create(candidateList[i], function (err, candidate) {

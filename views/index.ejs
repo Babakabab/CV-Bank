@@ -508,18 +508,15 @@
 			emailValidator(document.getElementById('email').value);
 			//console.log();
 			e.preventDefault();
-			let form = document.getElementById('candidate-data')
-			let formData = new FormData(form);
-			let isValidated = false;
+			let form = document.getElementById('candidate-data'),
+				formData = new FormData(form),
+				isValidated = false;
 			if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value && document.getElementById('uploader').value) {
 				isValidated = true;
 			}
 
 
 			console.log(isValidated);
-
-			// console.log("firstname",document.getElementByName('first-name').value)
-			// console.log("uploader",document.getElementById('uploader').value);
 			//Send the request if the phone number and E-mail are valid(or empty), and all the required fields are filled in
 			if (emailValidator(document.getElementById('email').value)) {
 				console.log("email is good");
@@ -535,7 +532,7 @@
 					body: formData,
 					method: "POST"
 				})
-					.then(console.log("hello"));
+					.then(location.reload());
 			}
 			else if (!isValidated) {
 				alert('please enter all fields necessary');

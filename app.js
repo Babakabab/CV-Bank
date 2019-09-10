@@ -6,6 +6,7 @@ const express               = require('express'),
 	  timeout               = require('connect-timeout'),
 	  chalk                 = require('chalk'),
 	  router                = require('./server'),
+	//   ejsLint               = require('ejs-lint'),
 	  mongodb               = require('mongodb');
     
 

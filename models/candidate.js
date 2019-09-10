@@ -13,7 +13,6 @@ var candidateSchema = new mongoose.Schema({
 	wantedPosition      : String,
 	uni                 : String,
 	degree              : String,
-	keyWords            : String,
 	folderName          : String,
 	interviewer         : String,
 	dataEnterer         : String,
@@ -29,6 +28,7 @@ var candidateSchema = new mongoose.Schema({
 	techUsed		    : Array ,
 	aInterviewsInfo     : Array ,
 	aCvURLs             : Array ,
+	keyWords            : Array ,
 	lastReviewed        : Date  ,
 	dateOfInterviewUs   : Date
 

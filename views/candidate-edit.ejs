@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -204,32 +203,35 @@
 				<div id="name" class="form-info left-box">
 					<div class="form-entity">
 						<label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
-								placeholder="First Name" value =<%=candidate.firstName ? candidate.firstName: '' %>></label>
+								placeholder="First Name"
+								value=<%=candidate.firstName ? candidate.firstName:'' %>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
-								placeholder="Last Name" value= <%= candidate.lastName ? candidate.lastName :'' %> ></label>
+								placeholder="Last Name"
+								value=<%= candidate.lastName ? candidate.lastName :'' %>></label>
 					</div>
 				</div>
 				<div class="form-info">
 					<div class="form-entity left-box">
 						<label for="gender">Gender: <input type="text" name="gender" class="form-control"
-								placeholder="Gender" value = <%= candidate.gender ? candidate.gender : '' %> ></label>
+								placeholder="Gender" value=<%= candidate.gender ? candidate.gender : '' %>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="email">E-mail: <input type="text" name="email" class="form-control"
-								placeholder="E-mail" value = <%= candidate.email ? candidate.email : '' %>></label>
+								placeholder="E-mail" value=<%= candidate.email ? candidate.email : '' %>></label>
 					</div>
 				</div>
 
 				<div id="score" class="form-info ">
 					<div class="form-entity left-box">
 						<label for="score">McQuaig Score: <input type="text" name="score" placeholder="Score"
-								class="form-control" value= <%= candidate.score ? candidate.score : '' %>></label>
+								class="form-control" value=<%= candidate.score ? candidate.score : '' %>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="degree">Degree:
-							<input name="degree" type="text" placeholder="Degree" class="form-control" value= <%= candidate.degree ? candidate.degree : ''%>>
+							<input name="degree" type="text" placeholder="Degree" class="form-control"
+								value=<%= candidate.degree ? candidate.degree : ''%>>
 						</label>
 					</div>
 				</div>
@@ -237,45 +239,50 @@
 				<div id="uni" class="form-info">
 					<div class="form-entity left-box">
 						<label for="uni">University <input type="text" name="uni" placeholder="University"
-								class="form-control" value = <%= candidate.uni ? candidate.uni : ''%> ></label>
+								class="form-control" value=<%= candidate.uni ? candidate.uni : ''%>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="position">Position: <input name="position" type="text" placeholder="Position"
-								class="form-control" value = <%= candidate.position ? candidate.position:'' %>></label>
+								class="form-control" value=<%= candidate.position ? candidate.position:'' %>></label>
 					</div>
 				</div>
 				<div class="form-info ">
 					<div class="form-entity left-box">
 						<label for="salary">Expected Salary: <input type="text" name="salary" placeholder="Salary"
-								class="form-control" value = <%= candidate.salary ? candidate.salary : '' %>></label>
+								class="form-control" value=<%= candidate.salary ? candidate.salary : '' %>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="key-words">Key Words: <input type="text" name="key-words" placeholder="Key Words"
-								class="form-control" value = <%= candidate.keyWords ? candidate.keyWords : '' %>></label>
+								class="form-control" value=<%= candidate.keyWords ? candidate.keyWords : '' %>></label>
 					</div>
 				</div>
 
 				<div class="form-info ">
 					<div class="form-entity left-box">
 						<label for="interviewer">Interviewer: <input type="text" name="interviewer"
-								placeholder="Interviewing Consultant" class="form-control" value = <%= candidate.interviewer ? candidate.interviewer : '' %>></label>
+								placeholder="Interviewing Consultant" class="form-control"
+								value=<%= candidate.interviewer ? candidate.interviewer : '' %>></label>
 					</div>
 					<div class="form-entity right-box">
-						<label for="data-enterer">Data Enterer: <input type="text" class="form-control" name="data-enterer"
-								placeholder="This Will be dropdown" value=<%= candidate.dataEnterer ? candidate.dataEnterer : '' %> ></label>
+						<label for="data-enterer">Data Enterer: <input type="text" class="form-control"
+								name="data-enterer" placeholder="This Will be dropdown"
+								value=<%= candidate.dataEnterer ? candidate.dataEnterer : '' %>></label>
 					</div>
 				</div>
 
 				<div class="form-info ">
 					<div class="form-entity left-box">
 						<label for="study-field">Field of Study: <input type="text" name="study-field"
-								class="form-control" placeholder="Field of Study" value=<%= candidate.studyField ? candidate.studyField : '' %> ></label>
+								class="form-control" placeholder="Field of Study"
+								value=<%= candidate.studyField ? candidate.studyField : '' %>></label>
 					</div>
 					<div class="form-entity right-box">
 						<label for="number-of-inteviews">Number of Interviews: <input type="text"
 								name="number-of-interviews" class="form-control" placeholder="Number of Interviews"
-								id="interviewCount" value= <%= candidate.numberOfInterviews ? candidate.numberOfInterviews : '' %>></label><button class="btn btn-primary" id="addNumOfInterviews"
-							onclick="addFirmInfoInputs(event)"> Add</button>
+								id="interviewCount"
+								value=<%= candidate.numberOfInterviews ? candidate.numberOfInterviews : '' %>></label><button
+							class="btn btn-primary" id="addNumOfInterviews" onclick="addFirmInfoInputs(event)">
+							Add</button>
 					</div>
 
 				</div>
@@ -285,7 +292,8 @@
 				<div class="form-info ">
 					<div class="form-entity left-box date">
 						<label class="date-label" for="date-of-interview-us">Date of Interview(us): <input type="date"
-								name="date-of-interview-us" class="form-control" value=<%= candidate.dateOfInterviewUs ? candidate.dateOfInterviewUs : '' %>></label>
+								name="date-of-interview-us" class="form-control"
+								value=<%= candidate.dateOfInterviewUs ? candidate.dateOfInterviewUs : '' %>></label>
 					</div>
 
 					<div class="form-entity right-box date">
@@ -396,7 +404,7 @@
 
 
 		}
-		function deleteInterviewInfo(element){
+		function deleteInterviewInfo(element) {
 			console.log(element);
 			$(element).parent().parent().remove();
 
@@ -407,14 +415,14 @@
 			interviewCount = parseInt(document.getElementById("interviewCount").value);
 			interviewInputAreasCount = document.getElementById("interviewInfo").childElementCount;
 			console.log(interviewCount);
-			if (interviewCount > 6){
+			if (interviewCount > 6) {
 				alert('The total number of interviews can not be over 6');
 			}
 			else {
 				if (interviewCount && !interviewInputAreasCount) {
-				for (let i = 0; i < interviewCount; i++) {
+					for (let i = 0; i < interviewCount; i++) {
 
-					
+
 						$("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
@@ -431,11 +439,11 @@
 											</div></div>`);
 					}
 				}
-				
-				else if(interviewInputAreasCount<interviewCount){
-						for (let i = 0; i < interviewCount-interviewInputAreasCount; i++) {
 
-					
+				else if (interviewInputAreasCount < interviewCount) {
+					for (let i = 0; i < interviewCount - interviewInputAreasCount; i++) {
+
+
 						$("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
@@ -451,13 +459,14 @@
 												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)" >
 											</div></div>`);
 					}
-					}
 				}
-				
-				console.log(interviewInputAreasCount);
 			}
-		
-		
+
+			console.log(interviewInputAreasCount);
+		}
+
+
+
 	</script>
 
 </body>

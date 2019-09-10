@@ -20,19 +20,19 @@ const candidatesInfoParser = function (files){
                               uni                : candidate[4],
                               folderName         : candidate[5],
                               notes              : candidate[6],
-                            //   email              : "",
-                            //   gender             : "",
-                            //   keyWords           : "",
-                            //   degree             : "",
-                            //   interviewer        : "",
-                            //   dataEnterer        : "",
-                            //   salary             : "",
-                            //   dateOfInterviewFirm: "",
-                            //   aInterviewsInfo    : [],
-                            //   targetFirm         : "",
-                            //   likertScore        : "",
-                            //   numberOfinterviews : "",
-                            //   cvURLs             : []
+                              email              : "",
+                              gender             : "",
+                              keyWords           : "",
+                              degree             : "",
+                              interviewer        : "",
+                              dataEnterer        : "",
+                              salary             : "",
+                              dateOfInterviewFirm: "",
+                              aInterviewsInfo    : [],
+                              targetFirm         : "",
+                              likertScore        : "",
+                              numberOfinterviews : "",
+                              aCvURLs             : []
                         };
                     
                     candidateList.push(oCandidate);

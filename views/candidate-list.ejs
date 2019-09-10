@@ -99,12 +99,16 @@
 			<tr>
 				<th>Name</th>
 				<th>Last Name</th>
-				<th>Position</th>
-				<th>Expected Salary</th>
+				<th>Target Position</th>
+				<th>Experience</th>
+
 				<th>University</th>
+				<th>Department</th>
+				<th>Expected Salary</th>
 				<th>McQuaig Score</th>
 				<th>CV Link</th>
 				<th>File Name</th>
+
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -113,16 +117,30 @@
 			<!-- BEGIN iterate all heroes with lodash forEach function -->
 			<% candidates.forEach(function(candidate, index) { %>
 			<tr>
-				<td id=<%= candidate.firstName %>> <%= candidate.firstName %></td>
-				<td id=<%= candidate.lastName %>><%= candidate.lastName %></td>
-				<td id=<%= candidate.position %>><%= candidate.position %></td>
-				<td id=<% if (candidate.salary){candidate.salary.toString()} %>><%= candidate.salary %></td>
-				<td id=<%= candidate.uni %>><%= candidate.uni %></td>
-				<td id=<%= candidate.score.wrong+candidate.score.empty+candidate.score.correct %>>
-					<%= candidate.score.wrong+" "+candidate.score.empty+" "+candidate.score.correct %></td>
-				<td id=<%= candidate.firstName+"cvURLs[0]" %></td> <a target="_new" href=<%=candidate.cvURLs[0]%>>CV
+				<td id=<%=candidate.firstName %>>
+					<%= candidate.firstName.charAt(0).toUpperCase()+candidate.firstName.substring(1); %></td>
+				<td id=<%=candidate.lastName %>>
+					<%= candidate.lastName.charAt(0).toUpperCase()+candidate.lastName.substring(1); %></td>
+				<td id=<%=candidate.wantedPosition %>>
+					<%= candidate.wantedPosition?candidate.wantedPosition.charAt(0).toUpperCase()+candidate.wantedPosition.substring(1):'NA' %>
+				</td>
+				<td id=<%=candidate.experience?candidate.experience:'NA'%>>
+					<%=candidate.experience?candidate.experience+candidate.experience:'NA'%></td>
+				<td id=<%=candidate.uni?candidate.uni:'NA' %>><%= candidate.uni?candidate.uni:'NA' %></td>
+				<td id=<%=candidate.fieldOfStudy ? candidate.fieldOfStudy:'NA' %>>
+					<%=candidate.fieldOfStudy ? candidate.fieldOfStudy:'NA'%></td>
+				<td id=<%=candidate.expectedSalary ? candidate.expectedSalary:'NA'%>>
+					<%=candidate.expectedSalary?candidate.expectedSalary:'NA' %></td>
+
+
+				<td id=<%= candidate.score?candidate.score.wrong+candidate.score.empty+candidate.score.correct:'NA' %>>
+					<%= candidate.score.correct?(candidate.score.wrong+" "+candidate.score.empty+" "+candidate.score.correct):'NA' %>
+				</td>
+				<td id=<%= candidate.aCvURLs[0]?candidate.firstName+candidate.aCvURLs[0]:'NA' %></td> <a target="_new"
+					href=<%=candidate.aCvURLs[0]?candidate.aCvURLs[0]:'NA'%>>CV
 					link</a></td>
-				<td id=<%= candidate.fileName %>><%= candidate.folderName %></td>
+				<td id=<%=candidate.folderName?candidate.folderName:'NA' %>>
+					<%=candidate.folderName?candidate.folderName:'NA'%></td>
 				<td><a href="/candidate/<%=candidate['_id']%>/edit"><button class="btn btn-primary"
 							onclick="edit(event)" id=<%=candidate['_id']+"edit"%>>Edit</button></a></td>
 				<td><button class="btn btn-primary" onclick="del(event)" id=<%=candidate['_id'] %>> Delete</button></td>
