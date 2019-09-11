@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "restart": "kill-port 3000"
   },
   "author": "Shervin Jahangiri",
   "license": "ISC",

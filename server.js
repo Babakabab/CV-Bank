@@ -14,7 +14,7 @@ const passport              = require('passport'),
 	app                     = express();
 
 const router = express.Router();
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -55,7 +55,7 @@ router.get('/candidate/new', function (req, res) {
 router.post('/candidate/new', upload.array('cv', 8), function (req, res) {
 	//Upload the CV to the cloud, wait for the program to finish, create a candidate and save in the database
 	console.log(req.body);
-	saveCandUpCV(req);
+	saveCandUpCV(req,"create");
 
 	//Rerender the page to enter another candidate
 	res.render('index');
@@ -98,6 +98,7 @@ router.post("/candidate/:id/delete", (req, res) => {
 
 });
 //Candidate edit route
+
 router.get("/candidate/:id/edit", (req, res) => {
 	Candidate.findOne({ _id: req.params.id })
 		.then((candidate) => {
@@ -114,6 +115,10 @@ router.get("/candidate/:id/edit", (req, res) => {
 		})
 		.catch((err) => { console.log(err) });
 
+});
+router.put("/candidate/:id/edit",upload.array('cv', 8),(req,res)=>{
+	saveCandUpCV(req,"update");
+	//res.render('index');
 });
 //Route for any wrong URL s
 router.get("*", function (req, res) {

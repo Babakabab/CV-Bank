@@ -1,17 +1,15 @@
 const 	createCandidate = require('./createCandidate'),
-
+		candidateUpdate = require('./candidateUpdate');
 
 	  	cloudinary = require('cloudinary').v2;	
 
 
 //This function saves candidate into the DB, and uploads the CV
-function saveCandUpCV(req) {
-	console.log("hello");
+function saveCandUpCV(req,method) {
 	let aCvURLs=[];
 
 	//Upload the CV onto the cloud
-	console.log(req.body);
-	console.log(req.files);
+	
 	for (let i = 0; i < req.files.length; i++) {
 		
 		cloudinary.uploader.upload(req.files[i].path, {
@@ -26,6 +24,7 @@ function saveCandUpCV(req) {
 				aCvURLs.push(result.url);
 				console.log(aCvURLs);
 				if (i == req.files.length - 1) {
+					if (method=="create"){
 					createCandidate(req.body, aCvURLs, function (error, candidate) {
 						if (error) {
 							console.log(error);
@@ -34,6 +33,17 @@ function saveCandUpCV(req) {
 							console.log(candidate);
 						}
 					});
+				}
+				else if(method="update"){
+					candidateUpdate(req.body,req.body.id, aCvURLs, function (error, candidate) {
+						if (error) {
+							console.log(error);
+						}
+						else {
+							console.log(candidate);
+						}
+					});
+				}
 				}
 			}
 		});

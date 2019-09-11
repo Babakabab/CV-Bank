@@ -203,26 +203,26 @@
         <h1> Add a Candidate to the Database</h1>
         <div id="main-form form-group">
 
-            <form id="candidate-data" action="/candidate/new" method="POST" enctype="multipart/form-data">
+            <form id="candidate-data" enctype="multipart/form-data">
                 <div id="name" class="form-info left-box">
                     <div class="form-entity">
-                        <label for="first-name">First Name: <input type="text" name="first-name" class="form-control"
+                        <label for="first-name">First Name: <input type="text" name="first-name" id="first-name" class="form-control"
                                 placeholder="First Name"
                                 value=<%=candidate.firstName ? candidate.firstName:'' %>></label>
                     </div>
                     <div class="form-entity right-box">
                         <label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
-                                placeholder="Last Name"
+                                placeholder="Last Name" id="last-name"
                                 value=<%= candidate.lastName ? candidate.lastName :'' %>></label>
                     </div>
                 </div>
                 <div class="form-info">
                     <div class="form-entity left-box">
-                        <label for="gender">Gender: <input type="text" name="gender" class="form-control"
+                        <label for="gender">Gender: <input type="text" id="gender" name="gender" class="form-control"
                                 placeholder="Gender" value=<%= candidate.gender ? candidate.gender : '' %>></label>
                     </div>
                     <div class="form-entity right-box">
-                        <label for="email">E-mail: <input type="text" name="email" class="form-control"
+                        <label for="email">E-mail: <input id='email' type="text" name="email" class="form-control"
                                 placeholder="E-mail" value=<%= candidate.email ? candidate.email : '' %>></label>
                     </div>
                 </div>
@@ -259,82 +259,82 @@
                         <label for="current-position">Current/last Position<input name="current-position" type="text"
                                 placeholder="Current Position" class="form-control"
                                 value=<%= candidate.currentPosition ? candidate.currentPosition : '' %>></label> </div>
-                                <div class="form-entity right-box">
-                            <label for="wanted-position">Wanted Position: <input name="wanted-position" type="text"
-                                    placeholder="Wanted Position" class="form-control"
-                                    value=<%= candidate.wantedPosition ? candidate.wantedPosition : '' %>></label> </div>
-                                    </div> <div class="form-info ">
-                                <div class="form-entity left-box">
-                                    <label for="last-salary">Last Salary: <input type="text" name="last-salary"
-                                            placeholder="Last Salary" class="form-control"
-                                            value=<%= candidate.lastSalary ? candidate.lastSalary : '' %>></label> </div>
-                                            <div class="form-entity right-box">
-                                        <label for="expected-salary">Expected Salary:<input type="text"
-                                                name="expected-salary" placeholder="Expected Salary"
-                                                class="form-control"
-                                                value=<%= candidate.expectedSalary ? candidate.expectedSalary : '' %>></label>
-                                                </div> </div> <div class="form-info ">
-                                            <div class="form-entity left-box">
-                                                <label for="interviewer">Interviewer: <input type="text"
-                                                        name="interviewer" placeholder="Interviewing Consultant"
-                                                        class="form-control"
-                                                        value=<%= candidate.interviewer ? candidate.interviewer : '' %>></label>
-                                            </div>
-                                            <div class="form-entity right-box">
-                                                <label for="data-enterer">Data Enterer: <input type="text"
-                                                        name="data-enterer" placeholder="This Will be dropdown"
-                                                        class="form-control"
-                                                        value=<%= candidate.dataEnterer ? candidate.dataEnterer : '' %>></label>
-                                            </div>
-                                </div>
+                    <div class="form-entity right-box">
+                        <label for="wanted-position">Wanted Position: <input name="wanted-position" type="text"
+                                placeholder="Wanted Position" class="form-control"
+                                value=<%= candidate.wantedPosition ? candidate.wantedPosition : '' %>></label> </div>
+                </div>
+                <div class="form-info ">
+                    <div class="form-entity left-box">
+                        <label for="last-salary">Last Salary: <input type="text" name="last-salary"
+                                placeholder="Last Salary" class="form-control"
+                                value=<%= candidate.lastSalary ? candidate.lastSalary : '' %>></label> </div>
+                    <div class="form-entity right-box">
+                        <label for="expected-salary">Expected Salary:<input type="text" name="expected-salary"
+                                placeholder="Expected Salary" class="form-control"
+                                value=<%= candidate.expectedSalary ? candidate.expectedSalary : '' %>></label>
+                    </div>
+                </div>
+                <div class="form-info ">
+                    <div class="form-entity left-box">
+                        <label for="interviewer">Interviewer: <input type="text" name="interviewer"
+                                placeholder="Interviewing Consultant" class="form-control"
+                                value=<%= candidate.interviewer ? candidate.interviewer : '' %>></label>
+                    </div>
+                    <div class="form-entity right-box">
+                        <label for="data-enterer">Data Enterer: <input type="text" name="data-enterer"
+                                placeholder="This Will be dropdown" class="form-control"
+                                value=<%= candidate.dataEnterer ? candidate.dataEnterer : '' %>></label>
+                    </div>
+                </div>
 
-                                <div class="form-info ">
-                                    <div class="form-entity left-box">
-                                        <label for="field-of-study">Field of Study: <input type="text"
-                                                name="field-of-study" class="form-control" placeholder="Field of Study"
-                                                value=<%= candidate.fieldOfStudy ? candidate.fieldOfStudy : '' %>></label>
-                                    </div>
-                                    <div class="form-entity right-box">
-                                        <label for="tech-used">Technologies Used <input type="text" name="tech-used"
-                                                class="form-control" placeholder="Technologies Used"
-                                                value=<%= candidate.techUsed ? candidate.techUsed : '' %>></label>
+                <div class="form-info ">
+                    <div class="form-entity left-box">
+                        <label for="field-of-study">Field of Study: <input type="text" name="field-of-study"
+                                class="form-control" placeholder="Field of Study"
+                                value=<%= candidate.fieldOfStudy ? candidate.fieldOfStudy : '' %>></label>
+                    </div>
+                    <div class="form-entity right-box">
+                        <label for="tech-used">Technologies Used <input type="text" name="tech-used"
+                                class="form-control" placeholder="Technologies Used"
+                                value=<%= candidate.techUsed ? candidate.techUsed : '' %>></label>
 
-                                    </div>
+                    </div>
 
-                                </div>
-                                <div class="form-info">
-                                    <label for="number-of-inteviews">Number of Interviews: <input type="number"
-                                            name="number-of-interviews" class="form-control"
-                                            placeholder="Number of Interviews" id="interviewCount"
-                                            value=<%=candidate.aInterviewsInfo.length ? candidate.aInterviewsInfo.length: '' %>></label><button
-                                        class="btn btn-primary add-button" id="addNumOfInterviews"
-                                        onclick="addFirmInfoInputs(event)"
-                                        style="vertical-align: text-bottom; height: fit-content;"> Add Interview
-                                        list</button>
-                                </div>
-                                <div id="interviewInfo">
-                                    <% for (let i=0;i<aParsedInterviewDates.length;i++){ %>
-                                    <div class="form-info ">
-                                        <div class="form-entity left-box">
-                                            <label for="firmName${i}">
-                                                Firm Name:
-                                                <input type="text" name="firm-name${i}" placeholder="Firm Name"
-                                                    class="form-control" value=<%= candidate.aInterviewsInfo[i].firmName %>>
-                                            </label>
+                </div>
+                <div class="form-info">
+                    <label for="number-of-inteviews">Number of Interviews: <input type="number"
+                            name="number-of-interviews" class="form-control" placeholder="Number of Interviews"
+                            id="interviewCount"
+                            value=<%=candidate.aInterviewsInfo.length ? candidate.aInterviewsInfo.length: '' %>></label><button
+                        class="btn btn-primary add-button" id="addNumOfInterviews" onclick="addFirmInfoInputs(event)"
+                        style="vertical-align: text-bottom; height: fit-content;"> Add Interview
+                        list</button>
+                </div>
+                <div id="interviewInfo">
+                    <% for (let i=0;i<aParsedInterviewDates.length;i++){ %>
+                    <div class="form-info ">
+                        <div class="form-entity left-box">
+                            <label for="firmName${i}">
+                                Firm Name:
+                                <input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control"
+                                    value=<%= candidate.aInterviewsInfo[i].firmName %>>
+                            </label>
 
-                                        </div>
-                                        <div class="form-entity right-box">
-                                            <label for="interviewDateFirm${i}">Date of Interview:
-                                                <input type="date" name="interview-date-firm${i}" class="form-control" value=<%=aParsedInterviewDates[i]%>>
-                                            </label>
+                        </div>
+                        <div class="form-entity right-box">
+                            <label for="interviewDateFirm${i}">Date of Interview:
+                                <input type="date" name="interview-date-firm${i}" class="form-control"
+                                    value=<%=aParsedInterviewDates[i]%>>
+                            </label>
 
-                                            <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;"
-                                                onclick="deleteInterviewInfo(this)">
-                                        </div>
-                                    </div>
-                                    
+                            <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;"
+                                onclick="deleteInterviewInfo(this)">
+                        </div>
+                    </div>
 
-                                    <%}%>
+
+                    <%}%>
                                 </div>
 
                                 <div class="form-info ">
@@ -344,154 +344,163 @@
                                             <input type="date" name="date-of-interview-us" class="form-control"
                                                 value=<%= sDateOfInterviewUs ? sDateOfInterviewUs:'' %>></label>
 
-                                    </div>
-                                    <div class="form-entity right-box">
-                                        <label for="phone-number">
-                                            Phone Number<input type="tel" class="form-control" id="phone-number"
-                                                pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"
-                                                name="phone-number" placeholder="Phone Number"
-                                                value=<%= candidate.phoneNumber ? candidate.phoneNumber:'' %>>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="form-info ">
-                                        <div class="form-entity left-box">
-                                            <label for="languages">Languages Spoken:<input type="text" name="languages"
-                                                    placeholder="languages" class="form-control"
-                                                    value=<%=candidate.languages ? candidate.languages.join(", "): '' %>></label>
-                                        </div>
+                </div>
+                <div class="form-entity right-box">
+                    <label for="phone-number">
+                        Phone Number<input type="tel" class="form-control" id="phone-number"
+                            pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" name="phone-number"
+                            placeholder="Phone Number" value=<%= candidate.phoneNumber ? candidate.phoneNumber:'' %>>
+                    </label>
+                </div>
+        </div>
+        <div>
+            <div class="form-info ">
+                <div class="form-entity left-box">
+                    <label for="languages">Languages Spoken:<input type="text" name="languages" placeholder="languages"
+                            class="form-control"
+                            value=<%=candidate.languages ? candidate.languages.join(", "): '' %>></label>
+                </div>
 
 
-                                        <div class="form-entity right-box">
-                                            <label for="experience">Experience:<input name="experience" type="number"
-                                                    class="form-control" placeholder="Experience, in years"
-                                                    value=<%=candidate.experience ? candidate.experience : '' %>></label>
-                                        </div>
+                <div class="form-entity right-box">
+                    <label for="experience">Experience:<input name="experience" type="number" class="form-control"
+                            placeholder="Experience, in years"
+                            value=<%=candidate.experience ? candidate.experience : '' %>></label>
+                </div>
 
-                                    </div>
+            </div>
 
-                                    <div class="form-info">
-                                        <div class="form-entity left-box">
-                                            <label for="folder-name">Folder Name:
-                                                <input type="text" name="folder-name" placeholder="Folder Name"
-                                                    class="form-control"
-                                                    value=<%= candidate.folderName ? candidate.folderName : '' %>>
-                                            </label>
-
-
-                                        </div>
-                                        <div class="form-entity right-box">
-                                            <label for="keyWords">
-                                                Keywords:<input type="text" placeholder="Keywords" class="form-control"
-                                                    name="key-words"
-                                                    value=<%=candidate.keyWords ? candidate.keyWords.join(", ") : ''%>>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div style="text-align: center;">
-                                        <textarea type="text" id="notes" name="notes" placeholder="Notes"
-                                            rows="7" value =<%=candidate.notes ? candidate.notes : '' %>></textarea>>
-                                    </div>
-
-                                </div>
+            <div class="form-info">
+                <div class="form-entity left-box">
+                    <label for="folder-name">Folder Name:
+                        <input type="text" name="folder-name" placeholder="Folder Name" class="form-control"
+                            value=<%= candidate.folderName ? candidate.folderName : '' %>>
+                    </label>
 
 
-                                <div class="buttons">
-                                    <div class="left-box">
-                                        <button class="btn btn-primary" id="save-candidate"
-                                            onclick="saveCandidate(event)">Save
-                                            Candidate</button>
-                                    </div>
-                                    <div class="right-box">
-                                        <input type="file" name="cv" id="uploader" multiple="" required>
-                                    </div>
+                </div>
+                <div class="form-entity right-box">
+                    <label for="keyWords">
+                        Keywords:<input type="text" placeholder="Keywords" class="form-control" name="key-words"
+                            value=<%=candidate.keyWords ? candidate.keyWords.join(", ") : ''%>>
+                    </label>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                
+                <% for (cv in candidate.aCvURLs){ %>
+                <div> <a href =<%=candidate.aCvURLs[cv]%>> Candidate CV page <%=parseInt(cv)+1%></a></div>
 
-                                </div>
-
-                                <div class="">
-                                    <img src="#" id="uploaded-img" style="display: none;" />
-                                </div>
-                                
-                    </div>
-            </form>
+                <%}%>
+            </div>
+            
+            <div style="text-align: center;">
+                <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="7"
+                    value=<%=candidate.notes ? candidate.notes : '' %>></textarea>
+            </div>
 
         </div>
-        <script type="text/javascript">
-        function highlighter(){
-				console.log("hello");
-				const inputElements = document.getElementsByTagName("input");
-				for (index in inputElements){
-					if (inputElements[index].value){
-						inputElements[index].style = "color:red"; 
-                    }
-				}
-			}
-			window.onload = highlighter();
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        $('#uploaded-img').attr('src', e.target.result)
-                            .css({ "width": "80%", "height": "auto", "display": "block" });
 
-                    }
+        <div class="buttons">
+            <div class="left-box">
+                <button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save
+                    Candidate</button>
+            </div>
+            <div class="right-box">
+                <input type="file" name="cv" id="uploader" multiple="" required>
+            </div>
 
-                    reader.readAsDataURL(input.files[0]);
+        </div>
+
+        <div class="">
+            <img src="#" id="uploaded-img" style="display: none;" />
+        </div>
+
+    </div>
+    </form>
+
+    </div>
+    <script type="text/javascript">
+        function highlighter() {
+            const inputElements = document.getElementsByTagName("input");
+            for (index in inputElements) {
+                if (inputElements[index].value) {
+
+                    inputElements[index].setAttribute("onchange", "removeHighlighter(this)");
+                    inputElements[index].style = "color:#9e1f1f;     background: #dfe4ea;";
                 }
             }
+        }
+        function removeHighlighter(e) {
+            e.style.color = "black";
+        }
 
-            $("#uploader").change(function () {
-                readURL(this);
-            });
-            const firmList = [];
-            function addFirm(e) {
+        window.onload = highlighter();
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-                e.preventDefault();
-                const name = document.getElementById("firm-list").value;
-                firmList.push(name);
-                if (name) {
-                    $("#listed-firms").append(`<span id="${name}" class="single-firm">${name}
+                reader.onload = function (e) {
+                    $('#uploaded-img').attr('src', e.target.result)
+                        .css({ "width": "80%", "height": "auto", "display": "block" });
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#uploader").change(function () {
+            readURL(this);
+        });
+        const firmList = [];
+        function addFirm(e) {
+
+            e.preventDefault();
+            const name = document.getElementById("firm-list").value;
+            firmList.push(name);
+            if (name) {
+                $("#listed-firms").append(`<span id="${name}" class="single-firm">${name}
 					<span onclick="deleteFirm(this)" style="margin-left:10px; cursor:pointer;">x</span></span>`);
-                }
-                $("#firm-list").val("");
-                console.log("firmlist", firmList);
+            }
+            $("#firm-list").val("");
+            console.log("firmlist", firmList);
+
+        }
+        function deleteFirm(element) {
+            const id = $(element).parent().attr('id');
+            const index = firmList.indexOf(id);
+            if (index > -1) {
+                firmList.splice(index, 1);
 
             }
-            function deleteFirm(element) {
-                const id = $(element).parent().attr('id');
-                const index = firmList.indexOf(id);
-                if (index > -1) {
-                    firmList.splice(index, 1);
 
-                }
-
-                console.log('firmlist', firmList);
-                $(element).parent().remove();
+            console.log('firmlist', firmList);
+            $(element).parent().remove();
 
 
+        }
+        function deleteInterviewInfo(element) {
+            console.log(element);
+            $(element).parent().parent().remove();
+
+        }
+        function addFirmInfoInputs(element) {
+            element.preventDefault();
+
+            interviewCount = parseInt(document.getElementById("interviewCount").value);
+            interviewInputAreasCount = document.getElementById("interviewInfo").childElementCount;
+            console.log(interviewCount);
+            if (interviewCount > 6) {
+                alert('The total number of interviews can not be over 6');
             }
-            function deleteInterviewInfo(element) {
-                console.log(element);
-                $(element).parent().parent().remove();
-
-            }
-            function addFirmInfoInputs(element) {
-                element.preventDefault();
-
-                interviewCount = parseInt(document.getElementById("interviewCount").value);
-                interviewInputAreasCount = document.getElementById("interviewInfo").childElementCount;
-                console.log(interviewCount);
-                if (interviewCount > 6) {
-                    alert('The total number of interviews can not be over 6');
-                }
-                else {
-                    if (interviewCount && !interviewInputAreasCount) {
-                        for (let i = 0; i < interviewCount; i++) {
+            else {
+                if (interviewCount && !interviewInputAreasCount) {
+                    for (let i = 0; i < interviewCount; i++) {
 
 
-                            $("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
+                        $("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
 													<input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control">
@@ -505,14 +514,14 @@
 												
 												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)">
 											</div></div>`);
-                        }
                     }
+                }
 
-                    else if (interviewInputAreasCount < interviewCount) {
-                        for (let i = 0; i < interviewCount - interviewInputAreasCount; i++) {
+                else if (interviewInputAreasCount < interviewCount) {
+                    for (let i = 0; i < interviewCount - interviewInputAreasCount; i++) {
 
 
-                            $("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
+                        $("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
 													<input type="text" name="firmName${i}" placeholder="Firm Name" class="form-control">
@@ -526,78 +535,84 @@
 												<!--<span style="font-size:em; color:red">DELETE</span>-->
 												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)" >
 											</div></div>`);
-                        }
                     }
                 }
-
-                console.log(interviewInputAreasCount);
-            }
-            function phoneNumberValidator(phoneNumber) {
-                //We only want to validate it if the field has been filled
-                if (phoneNumber) {
-                    let re = /^\d{11}$/;
-                    return re.test(phoneNumber);
-                }
-                //if the user hasn't filled in the field, leave him alone lol
-                else {
-
-                    return true;
-                }
-            }
-            function emailValidator(email) {
-                //We only want to validate it if the field has been filled
-
-                if (email) {
-                    let re = /\S+@\S+\.\S+/;
-                    return re.test(email);
-                }
-                //if the user hasn't filled in the field, leave him alone lol
-                else {
-                    return true;
-                }
-            }
-            function saveCandidate(e) {
-                emailValidator(document.getElementById('email').value);
-                //console.log();
-                e.preventDefault();
-                let form = document.getElementById('candidate-data')
-                let formData = new FormData(form);
-                let isValidated = false;
-                if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value && document.getElementById('uploader').value) {
-                    isValidated = true;
-                }
-
-
-               
-
-            
-              
-               
-                if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
-                    fetch("/candidate/new", {
-                        body: formData,
-                        method: "POST"
-                    })
-                        .then(location.reload());
-                }
-                else if (!isValidated) {
-                    alert('please enter all fields necessary');
-                }
-                else if (!emailValidator(document.getElementById('email').value)) {
-                    alert('Please enter a valid E-mail address');
-                }
-                else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
-                    alert('Please enter a valid phone number');
-                }
-
-
-
-
             }
 
+            console.log(interviewInputAreasCount);
+        }
+        function phoneNumberValidator(phoneNumber) {
+            //We only want to validate it if the field has been filled
+            if (phoneNumber) {
+                let re = /^\d{11}$/;
+                return re.test(phoneNumber);
+            }
+            //if the user hasn't filled in the field, leave him alone lol
+            else {
+
+                return true;
+            }
+        }
+        function emailValidator(email) {
+            //We only want to validate it if the field has been filled
+
+            if (email) {
+                let re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            }
+            //if the user hasn't filled in the field, leave him alone lol
+            else {
+                return true;
+            }
+        }
+        function saveCandidate(e) {
+            emailValidator(document.getElementById('email').value);
+           
+            e.preventDefault();
+            let form = document.getElementById('candidate-data'),
+                formData = new FormData(form),
+                id=window.location.href.split("/")[4];
+
+            formData.append('id', id)
+
+            let isValidated = false;
+            if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value && document.getElementById('uploader').value) {
+                isValidated = true;
+            }
+            if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
+                console.log(id);
+                for (let pair of formData.entries()){
+                console.log(pair[0]+"-"+pair[1]);
+            }
+
+                fetch(`/candidate/${id}/edit`, {
+                    method: 'PUT',
+                    header:{"Content-Type":"multipart/form-data"},
+                    body: formData
+                    
+                })
+                .then(location.reload())
+                .catch(err=>console.log(err));
+                    
+            }
+            else if (!isValidated) {
+                alert('please enter all fields necessary');
+            }
+            else if (!emailValidator(document.getElementById('email').value)) {
+                alert('Please enter a valid E-mail address');
+            }
+            else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
+                alert('Please enter a valid phone number');
+            }
 
 
-        </script>
+
+
+        }
+
+
+
+    </script>
 
 </body>
 

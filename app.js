@@ -16,7 +16,10 @@ app.use(require("express-session")({
 	resave: false,
 	saveUninitialized: false
 }));
-
+function errorHandler (err, req, res, next) {
+	console.log("Oops")
+  }
+app.use(errorHandler);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
