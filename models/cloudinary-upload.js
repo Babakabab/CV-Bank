@@ -22,7 +22,7 @@ function saveCandUpCV(req,method) {
 			}
 			else {
 				aCvURLs.push(result.url);
-				console.log(aCvURLs);
+				console.log(result);
 				if (i == req.files.length - 1) {
 					if (method=="create"){
 					createCandidate(req.body, aCvURLs, function (error, candidate) {
@@ -48,10 +48,22 @@ function saveCandUpCV(req,method) {
 			}
 		});
 	}
+	if (req.files.length===0){
+		candidateUpdate(req.body,req.body.id, [], function (error, candidate) {
+			if (error){
+				console.long(error);
+			}
+			else{
+				console.log(candidate);
+			}
+
+
+	});
 	
 	
 	
 
 
+}
 }
 module.exports = saveCandUpCV;

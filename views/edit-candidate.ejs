@@ -389,7 +389,7 @@
             <div style="text-align: center;">
                 
                 <% for (cv in candidate.aCvURLs){ %>
-                <div> <a href =<%=candidate.aCvURLs[cv]%>> Candidate CV page <%=parseInt(cv)+1%></a></div>
+                <div> <a target="_new" href =<%=candidate.aCvURLs[cv]%>> Candidate CV page <%=parseInt(cv)+1%></a></div>
 
                 <%}%>
             </div>
@@ -576,14 +576,14 @@
             formData.append('id', id)
 
             let isValidated = false;
-            if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value && document.getElementById('uploader').value) {
+            if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value) {
                 isValidated = true;
             }
             if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
                 console.log(id);
-                for (let pair of formData.entries()){
-                console.log(pair[0]+"-"+pair[1]);
-            }
+            //     for (let pair of formData.entries()){
+            //     console.log(pair[0]+"-"+pair[1]);
+            // }
 
                 fetch(`/candidate/${id}/edit`, {
                     method: 'PUT',
