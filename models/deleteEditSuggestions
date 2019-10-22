@@ -1,0 +1,11 @@
+const EditSuggestions = require("./editSuggestions"),
+      ObjectId        = require('mongodb').ObjectId,
+      Candidate       = require('./candidate'),
+      cb              = require("../utils/cb");
+const editSuggestionDeleter = (candidateId)=>{
+    EditSuggestions.deleteOne({_id:ObjectId(candidateId)},function(error){console.log(error);});
+    Candidate.findOneAndUpdate({_id:ObjectId(candidateId)},{$set:{pendingEditApproval:false}},function(err,update){if(err){console.log(err)} else{console.log(update)}});
+
+}
+
+module.exports = editSuggestionDeleter;

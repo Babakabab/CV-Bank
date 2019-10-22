@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 //Candidate Schema Setup
 var candidateSchema = new mongoose.Schema({
+	pendingEditApproval : Boolean,
 	firstName           : String,
 	lastName            : String,
 	email               : String,
@@ -25,11 +26,11 @@ var candidateSchema = new mongoose.Schema({
 	phoneNumber			: Number,
 	score               : Object,
 	languages		    : Array ,
-	techUsed		    : Array ,
+	techsUsed		    : Array ,
 	aInterviewsInfo     : Array ,
 	aCvURLs             : Array ,
 	keyWords            : Array ,
-	lastReviewed        : Date  ,
+	lastModified        : Date  ,
 	dateOfInterviewUs   : Date
 
 });

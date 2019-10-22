@@ -2,7 +2,7 @@ mcQuaigParser = require('./mcQuaigParser')
 const candidatesInfoParser = function (files){
     //Store all file names in an array
     var fileList = files.map((file) => file.originalname);
-    const candidateList = [];
+    const candidatesArray = [];
     //loop through each item in the array and 
     
     fileList.map((file)=>{
@@ -13,32 +13,23 @@ const candidatesInfoParser = function (files){
    
                         //Assign each part to the data they represent
                         const oCandidate = {
-                              firstName          : candidate[0],
-                              lastName           : candidate[1],
+                              firstName          : candidate[0].toLowerCase(),
+                              lastName           : candidate[1].toLowerCase(),
                               score              : mcQuaigParser(candidate[2]),
-                              wantedPosition     : candidate[3],
-                              uni                : candidate[4],
-                              folderName         : candidate[5],
-                              notes              : candidate[6],
-                              email              : "",
-                              gender             : "",
-                              keyWords           : "",
-                              degree             : "",
-                              interviewer        : "",
-                              dataEnterer        : "",
-                              salary             : "",
-                              dateOfInterviewFirm: "",
-                              aInterviewsInfo    : [],
-                              targetFirm         : "",
-                              likertScore        : "",
-                              numberOfinterviews : "",
-                              aCvURLs             : []
+                              wantedPosition     : candidate[3].toLowerCase(),
+                              uni                : candidate[4].toLowerCase(),
+                              folderName         : candidate[5].toLowerCase(),
+                              notes              : candidate[6]?candidate[6].toLowerCase():'',
+                              aCvURLs            : [],
+                              pendingEditApproval: false,
+                              lastModified       : new Date()
                         };
                     
-                    candidateList.push(oCandidate);
+                    candidatesArray
+            .push(oCandidate);
                         });
     
-    console.log(candidateList);
-    return candidateList;
+    console.log(candidatesArray);
+    return candidatesArray;
 }
 module.exports = candidatesInfoParser;

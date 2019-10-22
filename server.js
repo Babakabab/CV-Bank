@@ -1,16 +1,21 @@
 const passport              = require('passport'),
+	ObjectId				= require('mongodb').ObjectId,
 	LocalStrategy           = require("passport-local"),
 	registerUser            = require('./models/registerUser'),
 	User                    = require("./models/user"),
 	saveCandUpCV            = require('./models/cloudinary-upload.js'),
+	saveEditSuggestionUpCV  = require("./models/cloudinary-upload-for-edit")
 	fileNameParserUploader  = require('./models/fileNameParserUploader'),
 	search                  = require('./models/searchType'),
 	candidateDeleter        = require('./models/candidateDeleter'),
 	Candidate               = require('./models/candidate'),
+	EditSuggestion          = require('./models/editSuggestions'),
+	deleteEditSuggestion    = require('./models/deleteEditSuggestions'),
 	upload                  = require('./configs/multer-config'),
 	bodyParser              = require('body-parser'),
 	express                 = require('express'),
 	dateToStringParser      = require('./models/dateToStringParser'),
+	isLoggedIn              = require('./models/isLoggedIn'),
 	app                     = express();
 
 const router = express.Router();
@@ -26,28 +31,29 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 //Home Page
 
-var candidateList;
-router.get('/', function (req, res) {
-	res.render("main-page");
+router.get('/',isLoggedIn, function (req, res) {
+	res.render("main-page",{userType:req.user.userType});
+	console.log(req.user);
 });
 
 //Routing for candidate search
-router.get('/search-candidates', function (req, res) {
+router.get('/search-candidates',isLoggedIn, function (req, res) {
 	//Render the search page
 	res.render("search-candidates");
 });
-router.post("/search-candidates", function (req, res) {
+router.post("/search-candidates",isLoggedIn, function (req, res) {
 	//console.log(search(req));
 
 	search(req, function (candidates) {
-		res.render('candidate-list', { candidates: candidates });
+		res.render('candidate-list', { candidates: candidates,currentUser:req.user });
 
 	});
 
 });
 
+
 //Routing for making a new candidate
-router.get('/candidate/new', function (req, res) {
+router.get('/candidate/new',isLoggedIn, function (req, res) {
 	res.render("index");
 });
 
@@ -62,11 +68,11 @@ router.post('/candidate/new', upload.array('cv', 8), function (req, res) {
 });
 
 //Uploading Routes
-router.get('/upload', (req, res) => {
+router.get('/upload', isLoggedIn,(req, res) => {
 	res.render('upload-test');
 
 });
-router.post('/upload', upload.array('cv', 400), function (req, res) {
+router.post('/upload',isLoggedIn, upload.array('cv', 400), function (req, res) {
 	//Loop through all the file names, split the names up, 
 	//assign them to the right variables, and finally upload them and save
 	//them in the database.
@@ -78,15 +84,16 @@ router.post('/upload', upload.array('cv', 400), function (req, res) {
 router.get("/register", function (req, res) {
 	res.render('register');
 });
-router.post("/register", registerUser);
+router.post("/register",registerUser);
 
-//THE PAGES THAT USER WILL SEE AFTER LOGGING IN
-router.get("/secret", function (req, res) { res.render("main-page"); });
+	
 
 //LOGIN ROUTES
-router.get("/login", function (req, res) { res.render("login"); });
+router.get("/login", function (req, res) {
+	 res.render("login");
+	 });
 router.post("/login", passport.authenticate("local", {
-	successRedirect: "/secret",
+	successRedirect: '/',
 	failureRedirect: "/login"
 }), function (req, res) {
 
@@ -99,7 +106,8 @@ router.post("/candidate/:id/delete", (req, res) => {
 });
 //Candidate edit route
 
-router.get("/candidate/:id/edit", (req, res) => {
+router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
+	// if (req.user.userType==="sr"||req.user.userType==="superAdmin"){
 	Candidate.findOne({ _id: req.params.id })
 		.then((candidate) => {
 			
@@ -110,19 +118,123 @@ router.get("/candidate/:id/edit", (req, res) => {
 			candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
 
 			
-			res.render('edit-candidate', { candidate: candidate,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs });
-			//console.log(candidate)
+			res.render('edit-candidate', { candidate: candidate,isEditSuggestion:false,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs, currentUser:req.user.userType });
 		})
 		.catch((err) => { console.log(err) });
+	//}
+	// else if(req.user.userType==="jr"){
+	// 	Candidate.findOne({ _id: req.params.id })
+	// 	.then((candidate) => {
+			
+			
+
+	// 		const sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs),
+	// 			  aParsedInterviewDates = [];
+	// 		candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
+
+			
+	// 		res.render('edit-candidate', { candidate: candidate,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs });
+	// 		//console.log(candidate)
+	// 	})
+	// 	.catch((err) => { console.log(err) });
+	// }
 
 });
-router.put("/candidate/:id/edit",upload.array('cv', 8),(req,res)=>{
+router.put("/candidate/:id/approve",(req,res)=>{});
+router.put("/candidate/:id/edit",isLoggedIn,upload.array('cv', 8),(req,res)=>{
 	saveCandUpCV(req,"update");
 	//res.render('index');
+});
+router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
+	// if (req.user.userType==="sr"||req.user.userType==="superAdmin"){
+	EditSuggestion.findOne({ _id: req.params.id })
+		.then((editSuggestion) => {
+			
+			
+
+			const sDateOfInterviewUs = dateToStringParser(editSuggestion.dateOfInterviewUs),
+				  aParsedInterviewDates = [];
+			editSuggestion.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
+
+			
+			res.render('edit-candidate', { candidate: editSuggestion,isEditSuggestion:true,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs, currentUser:req.user.userType });
+		})
+		.catch((err) => { console.log(err) });
+	//}
+	// else if(req.user.userType==="jr"){
+	// 	Candidate.findOne({ _id: req.params.id })
+	// 	.then((candidate) => {
+			
+			
+
+	// 		const sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs),
+	// 			  aParsedInterviewDates = [];
+	// 		candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
+
+			
+	// 		res.render('edit-candidate', { candidate: candidate,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs });
+	// 		//console.log(candidate)
+	// 	})
+	// 	.catch((err) => { console.log(err) });
+	// }
+
+});
+router.post("/candidate/:id/suggestedit",isLoggedIn,upload.array('cv',8),(req,res)=>{
+	console.log("request body made at suggest edit route \n");
+	saveEditSuggestionUpCV(req,(error,result)=>{
+		if (error){
+			console.log(error);
+		}
+		else{
+			console.log(result)
+		}
+	});
+	res.send();
+});
+router.get("/candidate/:id",isLoggedIn,(req,res)=>{
+	//Create a function that makes a DB inquiry then returns the candidate as an object
+	console.log(req.params.id);
+	Candidate.findOne({'_id':ObjectId(req.params.id)},(err,candidate)=>{
+		if(err){
+			console.log(err);
+		}
+		console.log(candidate);
+		res.send(candidate);
+	});
+});
+router.get("/editsuggestion/:id",isLoggedIn,(req,res)=>{
+	EditSuggestion.findOne({'_id':ObjectId(req.params.id)},(err,editSuggestion)=>{
+		if(err){
+			console.log(err);
+		}
+		
+		res.send(editSuggestion);
+	});
+});
+router.get("/logout",(req,res)=>{
+	req.logout();
+	res.redirect("/login");
+
+});
+router.get('/pending-approval',isLoggedIn,(req,res)=>{
+	Candidate.find({pendingEditApproval:true},function(err,candidates){
+		if(err){
+			console.log(err);
+		}
+		else{
+		res.render('pending-approval',{currentUser:req.user,candidates:candidates});
+	}
+	});
+})
+//Edit Suggestion Delter
+router.delete('/editsuggestion/:id/delete',function(req,res){
+	deleteEditSuggestion(req.params.id);
+	res.send();
 });
 //Route for any wrong URL s
 router.get("*", function (req, res) {
 	res.send("YOURE a STAR");
 });
+
 
 module.exports = router;

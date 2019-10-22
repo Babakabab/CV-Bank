@@ -65,7 +65,7 @@ div.group{
 label{
   display:block;
   margin-bottom:5px;
-  text
+  
 }
 div.group input{
   width:100%;
@@ -99,16 +99,23 @@ input[type="submit"]:hover{
                  
                   <h1>Sign Up</h1>
                   <form action="/register" method="POST">
+                    
                     <div class="group">
-                      <label for="email">Email:</label>
-                      <input type="email" id="email" name="username">
+                      <label for="user-name">Username:</label>
+                      <input type="name" id="username" name="username">
                     </div>
                     <div class="group">
                       <label for="password">Password:</label>
                       <input id="password" type="password" name="password">
-                      <a href="/register">Already have an account? Sign in here</a>
                     </div>
-                    <input type="submit" value="Register" id="submit">
+                    <div class="group">
+                      <label for="user-type">User Type:</label>
+                      <input id="password" type="text" name="user-type">
+                    </div>
+                    
+                    <div style="text-align: center">
+                      <input type="submit" value="Sign Up" id="submit" onclick="signIn(this)">
+                    </div>
                   </form>
                 </div>
               </div>

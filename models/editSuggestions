@@ -1,0 +1,39 @@
+// //============
+// //Schema Setup
+// //============
+const mongoose = require("mongoose");
+
+//Candidate Schema Setup
+var editSuggestionsSchema = new mongoose.Schema({
+    firstName           : String,
+	lastName            : String,
+	email               : String,
+	gender              : String,
+	currentPosition     : String,
+	wantedPosition      : String,
+	uni                 : String,
+	degree              : String,
+	folderName          : String,
+	interviewer         : String, 
+	dataEnterer         : String,
+	notes               : String,
+	fieldOfStudy		: String,
+	expectedSalary      : Number,
+	lastSalary          : Number,
+	likertScale	        : Number,    
+	experience          : Number,
+	phoneNumber			: Number,
+	score               : Object,
+	languages		    : Array ,
+	techsUsed		    : Array ,
+	aInterviewsInfo     : Array ,
+	aCvURLs             : Array ,
+	keyWords            : Array ,
+	creationDate        : Date  ,
+	dateOfInterviewUs   : Date
+
+});
+editSuggestionsSchema.index({firstName:1,lastName:1,uni:1,score:1},{unique:true});
+var EditSuggestions = mongoose.model("EditSuggestions", editSuggestionsSchema);
+
+module.exports =EditSuggestions; 

@@ -43,7 +43,18 @@
 					Upload Files
 				</button>
 			</a>
-			
+			<% if (userType == "sr"){%>
+				<a href="/pending-approval">
+					<button>
+						Pending Approval
+					</button>
+				</a>
+				<%}%>
+			<a href="/logout">
+				<button>
+				Log Out
+				</button>
+			</a>
 		</div>
 
 	</div>

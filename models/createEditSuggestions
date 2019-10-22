@@ -1,0 +1,75 @@
+const EditSuggestions     =  require('./editSuggestions'),
+      ObjectId            =  require('mongodb').ObjectID,
+      mcQuaigParser =  require('./mcQuaigParser');
+function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
+    const   firstName               = oCandidate['firstName'].toLowerCase(),
+            lastName                = oCandidate['lastName'].toLowerCase(),
+            email                   = oCandidate.email.toLowerCase(),
+            gender                  = oCandidate.gender.toLowerCase(),
+            degree                  = oCandidate.degree.toLowerCase(),
+            uni                     = oCandidate.uni.toLowerCase(),
+            score                   = mcQuaigParser(oCandidate["score"]),
+            likertScale             = oCandidate['likertScale'],
+            currentPosition         = oCandidate['currentPosition'].toLowerCase(),
+            wantedPosition          = oCandidate['wantedPosition'].toLowerCase(),     
+            lastSalary              = oCandidate['lastSalary'],
+            expectedSalary          = oCandidate['expectedSalary'],
+            interviewer             = oCandidate.interviewer.toLowerCase(),
+            dataEnterer             = oCandidate['dataEnterer'].toLowerCase(),
+            fieldOfStudy            = oCandidate['fieldOfStudy'].toLowerCase(),
+            //We first turn the string into all lower case. We then split the string by the commas, and finally we get rid of whitespaces at the end and beinning of entries
+            techsUsed                = oCandidate['techsUsed']?oCandidate['techsUsed'].toLowerCase().split(",").map((techUsed)=> {return techUsed.trim();}):'',
+            aInterviewsInfo         = [],
+            dateOfInterviewUs       = oCandidate['dateOfInterviewUs'],
+            phoneNumber             = oCandidate['phoneNumber'],
+            languages               = oCandidate.languages.toLowerCase().split(",").map((language)=>{return language.trim();}),
+            experience              = oCandidate.experience,
+            folderName              = oCandidate['folderName'].toLowerCase(),
+            keyWords                = oCandidate['keyWords'].toLowerCase().split(",").map((keyWord)=>{return keyWord.trim();})
+            notes                   = oCandidate.notes.toLowerCase(),
+            creationDate            = new Date(),
+            _id                     = ObjectId(oCandidate.id),
+            aCvURLs                 = oCandidate.aCvURLs; 
+      for (let i=0;i<oCandidate['numberOfInterviews'];i++){
+        if (oCandidate[`firmName${i}`]){
+        aInterviewsInfo.push({'firmName': oCandidate[`firmName${i}`],'interviewDate':oCandidate[`interviewDateFirm${i}`]});
+    }
+}          
+    EditSuggestions.create({
+        _id,
+         firstName        ,
+         lastName         ,
+         email            ,
+         gender           ,
+         degree           ,
+         uni              ,
+         score            ,
+         likertScale      ,
+         currentPosition  ,
+         wantedPosition   ,
+         lastSalary       ,
+         expectedSalary   ,
+         interviewer      ,
+         dataEnterer      ,
+         fieldOfStudy     ,
+         techsUsed         ,
+         aInterviewsInfo  ,
+         dateOfInterviewUs,
+         phoneNumber      ,
+         folderName       ,
+         languages        ,
+         experience       ,
+         keyWords         ,
+         notes            ,
+         creationDate     ,
+         aCvURLs           
+}, function(err, editSuggestions){
+    if(err){
+        cb(err,undefined);
+    }
+    else{
+        cb(undefined,editSuggestions);
+    }
+});
+}
+module.exports=createEditSuggestions;

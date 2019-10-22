@@ -91,6 +91,7 @@
 		<a href="/candidate/new">Add a Candidate</a>
 		<a href="/search-candidates">Search</a>
 		<a href="/upload">Upload Files</a>
+		<a href="/logout">Log Out</a>
 	</div>
 	<!-- EJS template that represents the html structure originally build in renderHeroes and buildHero function -->
 	<h1>Search Results</h1>
@@ -108,8 +109,11 @@
 				<th>McQuaig Score</th>
 				<th>CV Link</th>
 				<th>File Name</th>
-
 				<th>Action</th>
+				<% if(currentUser.userType==="superAdmin"||currentUser.userType==="sr"){%>	
+
+				
+				<%}%>
 			</tr>
 		</thead>
 		<tbody>
@@ -141,10 +145,17 @@
 					link</a></td>
 				<td id=<%=candidate.folderName?candidate.folderName:'NA' %>>
 					<%=candidate.folderName?candidate.folderName:'NA'%></td>
+				<%if (!candidate.pendingEditApproval){%>
 				<td><a href="/candidate/<%=candidate['_id']%>/edit"><button class="btn btn-primary"
 							onclick="edit(event)" id=<%=candidate['_id']+"edit"%>>Edit</button></a></td>
-				<td><button class="btn btn-primary" onclick="del(event)" id=<%=candidate['_id'] %>> Delete</button></td>
+				<%}else{%>
+				
+					<td><b>PENDING APPROVAL</b></td>
+				<%}%>	
+				<% if(currentUser.userType==="superAdmin"){%>	
 
+				<td><button class="btn btn-primary" onclick="del(event)" id=<%=candidate['_id'] %>> Delete</button></td>
+				<%}%>
 			</tr>
 			<% }); %>
 			<!-- END iterate all heroes with lodash forEach function -->

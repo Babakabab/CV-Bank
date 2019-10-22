@@ -9,8 +9,8 @@
     <style type="text/css">
         .form-info {
             display: flex;
-            justify-content: center;
-            max-width: 800px;
+            justify-content: space-between;
+            max-width: 500px;
             width: 50%;
             margin-right: auto;
             margin-left: auto;
@@ -135,6 +135,16 @@
             color: white;
         }
 
+        .reverse-edit {
+            margin: auto 2px;
+            cursor: pointer;
+            display: flex;
+        }
+
+        .box {
+            display: flex;
+        }
+
         @media screen and (max-width: 990px) {
             .add-button {
                 margin-top: 24px;
@@ -200,212 +210,413 @@
     </div>
 
     <div class="container">
-        <h1> Add a Candidate to the Database</h1>
+        <h1> Add a Candidate to the Database </h1>
         <div id="main-form form-group">
 
             <form id="candidate-data" enctype="multipart/form-data">
-                <div id="name" class="form-info left-box">
-                    <div class="form-entity">
-                        <label for="first-name">First Name: <input type="text" name="first-name" id="first-name" class="form-control"
-                                placeholder="First Name"
-                                value=<%=candidate.firstName ? candidate.firstName:'' %>></label>
-                    </div>
-                    <div class="form-entity right-box">
-                        <label for="last-name">Last name: <input type="text" name="last-name" class="form-control"
-                                placeholder="Last Name" id="last-name"
-                                value=<%= candidate.lastName ? candidate.lastName :'' %>></label>
-                    </div>
-                </div>
-                <div class="form-info">
+                <div id="name" class="form-info ">
                     <div class="form-entity left-box">
-                        <label for="gender">Gender: <input type="text" id="gender" name="gender" class="form-control"
-                                placeholder="Gender" value=<%= candidate.gender ? candidate.gender : '' %>></label>
+                        <label for="first-name">First Name:</label>
+                        <div class="box">
+                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                placeholder="First Name" value=<%=candidate.firstName ? candidate.firstName:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
+                    
                     </div>
                     <div class="form-entity right-box">
-                        <label for="email">E-mail: <input id='email' type="text" name="email" class="form-control"
-                                placeholder="E-mail" value=<%= candidate.email ? candidate.email : '' %>></label>
+                        <label for="last-name">Last name:</label>
+                            <div class="box">
+                                <input type="text" name="lastName" class="form-control"
+                                    placeholder="Last Name" id="lastName"
+                                    value=<%= candidate.lastName ? candidate.lastName :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span> <%}%>
+                            </div>
                     </div>
                 </div>
 
                 <div class="form-info">
+                    <div class="form-entity left-box">
+                        <label for="gender">Gender:</label>
+                        <div class="box">
+                                <input type="text" name="gender" class="form-control"
+                                    placeholder="Gender" id="gender"
+                                    value=<%= candidate.gender ? candidate.gender :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
+                    </div>
                     <div class="form-entity right-box">
-                        <label for="degree">Degree:
-                            <input name="degree" type="text" placeholder="Degree" class="form-control"
-                                value=<%= candidate.degree ? candidate.degree : ''%>>
-                        </label>
+                        <label for="email">E-mail: </label>
+                        <div class="box">
+                                <input type="email" name="email" class="form-control"
+                                    placeholder="Email" id="email"
+                                    value=<%= candidate.email ? candidate.email :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-info">
+                    <div class="form-entity left-box">
+                        <label for="degree">Degree:</label>
+                        <div class="box">
+                                <input type="text" name="degree" class="form-control"
+                                    placeholder="Degree" id="degree"
+                                    value=<%= candidate.degree ? candidate.degree :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
+
                     </div>
                     <div class="form-entity left-box">
-                        <label for="uni">University <input type="text" name="uni" placeholder="University"
-                                class="form-control" value=<%= candidate.uni ? candidate.uni : ''%>></label>
+                        <label for="uni">University </label>
+                        <div class="box">
+                                <input type="text" name="uni" class="form-control"
+                                    placeholder="University" id="uni"
+                                    value=<%= candidate.uni ? candidate.uni :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
                     </div>
                 </div>
                 <div id="mcQuaig-score" class="form-info ">
                     <div class="form-entity left-box">
-                        <label for="mcQuaig-score">McQuaig Score: <input type="text" name="score" placeholder="Score"
-                                class="form-control"
-                                value=<%= candidate.score ? candidate.score.wrong+"\xA0"+candidate.score.empty+"\xA0"+candidate.score.correct  : '' %>></label>
+                        <label for="mcQuaig-score">McQuaig Score: </label> 
+                        <div class="box">
+                                <input type="text" name="score" class="form-control"
+                                    placeholder="McQuaig Score" id="score"
+                                    value=<%= candidate.score ? candidate.score.wrong+"-"+candidate.score.empty+"-"+candidate.score.correct :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginalScore(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersionScore(this)" /></span>
+                            <%}%>
+                            </div>
                     </div>
                     <div class="form-entity right-box">
-                        <label for="likert-scale">
-                            Likert Score:
-                            <input type="number" name="likert-scale" placeholder="Likert Scale Score"
-                                class="form-control" value=<%=candidate.likertScale ? candidate.likertScale:''%>>
-                        </label>
+                        <label for="likert-scale"> Likert Score:</label>
+                        
+                        <div class="box">
+                                <input type="text" name="likertScale" id="likertScale" class="form-control"
+                                    placeholder="Likert Scale" value=<%=candidate.likertScale ? candidate.likertScale:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
                     </div>
                 </div>
 
                 <div id="uni" class="form-info">
                     <div class="form-entity left-box">
-                        <label for="current-position">Current/last Position<input name="current-position" type="text"
-                                placeholder="Current Position" class="form-control"
-                                value=<%= candidate.currentPosition ? candidate.currentPosition : '' %>></label> </div>
+                        <label for="current-position">Current/last Position</label>
+                        <div class="box">
+                                <input type="text" name="currentPosition" class="form-control"
+                                    placeholder="Current Position" id="current-position"
+                                    value=<%= candidate.currentPosition ? candidate.currentPosition :'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
+                    </div>
                     <div class="form-entity right-box">
-                        <label for="wanted-position">Wanted Position: <input name="wanted-position" type="text"
-                                placeholder="Wanted Position" class="form-control"
-                                value=<%= candidate.wantedPosition ? candidate.wantedPosition : '' %>></label> </div>
-                </div>
-                <div class="form-info ">
-                    <div class="form-entity left-box">
-                        <label for="last-salary">Last Salary: <input type="text" name="last-salary"
-                                placeholder="Last Salary" class="form-control"
-                                value=<%= candidate.lastSalary ? candidate.lastSalary : '' %>></label> </div>
-                    <div class="form-entity right-box">
-                        <label for="expected-salary">Expected Salary:<input type="text" name="expected-salary"
-                                placeholder="Expected Salary" class="form-control"
-                                value=<%= candidate.expectedSalary ? candidate.expectedSalary : '' %>></label>
+                        <label for="wanted-position">Wanted Position:</label> 
+                        <div class="box">
+                            <input type="text" name="wantedPosition" id="wantedPosition" class="form-control"
+                                placeholder="Wanted Position" value=<%=candidate.wantedPosition ? candidate.wantedPosition:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div> 
                     </div>
                 </div>
                 <div class="form-info ">
                     <div class="form-entity left-box">
-                        <label for="interviewer">Interviewer: <input type="text" name="interviewer"
-                                placeholder="Interviewing Consultant" class="form-control"
-                                value=<%= candidate.interviewer ? candidate.interviewer : '' %>></label>
+                        <label for="last-salary">Last Salary:</label> 
+                        <div class="box">
+                                <input type="number" name="lastSalary" id="lastSalary" class="form-control"
+                                    placeholder="Last Salary" value=<%=candidate.lastSalary ? candidate.lastSalary:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
                     </div>
                     <div class="form-entity right-box">
-                        <label for="data-enterer">Data Enterer: <input type="text" name="data-enterer"
-                                placeholder="This Will be dropdown" class="form-control"
-                                value=<%= candidate.dataEnterer ? candidate.dataEnterer : '' %>></label>
+                        <label for="expected-salary">Expected Salary:</label>
+                        <div class="box">
+                            <input type="number" name="expectedSalary" id="expected-salary" class="form-control"
+                                placeholder="Expected Salary" value=<%=candidate.expectedSalary ? candidate.expectedSalary:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-info ">
+                    <div class="form-entity left-box">
+                        <label for="interviewer">Interviewer: </label>
+                        <div class="box">
+                                <input type="text" name="interviewer" id="interviewer" class="form-control"
+                                    placeholder="Interviewer" value=<%=candidate.interviewer ? candidate.interviewer:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                        </div>
+                    </div>
+                    <div class="form-entity right-box">
+                        <label for="data-enterer">Data Enterer: </label>
+                        <div class="box">
+                                <input type="text" name="dataEnterer" id="dataEnterer" class="form-control"
+                                    placeholder="Data Enterer" value=<%=candidate.dataEnterer ? candidate.dataEnterer:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
                     </div>
                 </div>
 
                 <div class="form-info ">
                     <div class="form-entity left-box">
-                        <label for="field-of-study">Field of Study: <input type="text" name="field-of-study"
-                                class="form-control" placeholder="Field of Study"
-                                value=<%= candidate.fieldOfStudy ? candidate.fieldOfStudy : '' %>></label>
+                        <label for="field-of-study">Field of Study:</label>
+                        <div class="box">
+                                <input type="text" name="fieldOfStudy" id="fieldOfStudy" class="form-control"
+                                    placeholder="Field of Study" value=<%=candidate.fieldOfStudy ? candidate.fieldOfStudy:'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
                     </div>
                     <div class="form-entity right-box">
-                        <label for="tech-used">Technologies Used <input type="text" name="tech-used"
-                                class="form-control" placeholder="Technologies Used"
-                                value=<%= candidate.techUsed ? candidate.techUsed : '' %>></label>
+                        <label for="tech-used">Technologies Used:</label> 
+                        <div class="box">
+                                <input type="text" name="techsUsed" id="techsUsed" class="form-control"
+                                    placeholder="Technologies Used" value=<%=candidate.techUsed ? candidate.techUsed.join(",\xA0"):'' %>>
+                            <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                            <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px"
+                                    width="20" onclick="backToOriginal(this)" /><img name="show-edited-version"
+                                    src="/forward.png" height="20px" width="20"
+                                    onclick="showEditedVersion(this)" /></span>
+                            <%}%>
+                            </div>
 
                     </div>
 
                 </div>
                 <div class="form-info">
-                    <label for="number-of-inteviews">Number of Interviews: <input type="number"
-                            name="number-of-interviews" class="form-control" placeholder="Number of Interviews"
-                            id="interviewCount"
-                            value=<%=candidate.aInterviewsInfo.length ? candidate.aInterviewsInfo.length: '' %>></label><button
-                        class="btn btn-primary add-button" id="addNumOfInterviews" onclick="addFirmInfoInputs(event)"
-                        style="vertical-align: text-bottom; height: fit-content;"> Add Interview
-                        list</button>
-                </div>
-                <div id="interviewInfo">
-                    <% for (let i=0;i<aParsedInterviewDates.length;i++){ %>
-                    <div class="form-info ">
-                        <div class="form-entity left-box">
-                            <label for="firmName${i}">
-                                Firm Name:
-                                <input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control"
-                                    value=<%= candidate.aInterviewsInfo[i].firmName %>>
-                            </label>
-
-                        </div>
-                        <div class="form-entity right-box">
-                            <label for="interviewDateFirm${i}">Date of Interview:
-                                <input type="date" name="interview-date-firm${i}" class="form-control"
-                                    value=<%=aParsedInterviewDates[i]%>>
-                            </label>
-
-                            <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;"
-                                onclick="deleteInterviewInfo(this)">
+                    <label for="number-of-inteviews">Number of Interviews: </label>
+                    <div class="box">
+                    
+                    <input type="number"
+                        name="numberOfInterviews" class="form-control" placeholder="Number of Interviews"
+                        id="interviewCount" style="margin:auto;"
+                        value=<%=candidate.aInterviewsInfo.length ? candidate.aInterviewsInfo.length: '' %>><button
+                                class="btn btn-primary add-button" id="addNumOfInterviews"
+                                onclick="addFirmInfoInputs(event)"
+                                style="vertical-align: text-bottom; height: fit-content; margin:auto;"> Add Interview
+                                list</button>
                         </div>
                     </div>
+                    <div id="interviewInfo">
+                        <% for (let i=0;i<aParsedInterviewDates.length;i++){ %>
+                        <div class="form-info ">
+                            <div class="form-entity left-box">
+                                <label for="firmName${i}">
+                                    Firm Name:
+                                </label>
+                                <input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control"
+                                    value=<%= candidate.aInterviewsInfo[i].firmName %>>
 
 
-                    <%}%>
+                            </div>
+                            <div class="form-entity right-box">
+                                <label for="interviewDateFirm${i}">Date of Interview:</label>
+                                <input type="date" name="interview-date-firm${i}" class="form-control"
+                                    value=<%=aParsedInterviewDates[i]%>>
+
+
+                                <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;"
+                                    onclick="deleteInterviewInfo(this)">
+                            </div>
+                        </div>
+
+
+                        <%}%>
                                 </div>
 
-                                <div class="form-info ">
-                                    <div class="form-entity left-box">
-                                        <label class="date-label" for="date-of-interview-us">Date of Interview(us):
-                                            
-                                            <input type="date" name="date-of-interview-us" class="form-control"
-                                                value=<%= sDateOfInterviewUs ? sDateOfInterviewUs:'' %>></label>
+                <div class="form-info ">
+                   <div class="form-entity left-box">
+                       <label class="date-label" for="date-of-interview-us">Date of Interview(us): </label>
+                       <div class="box">
+                            <input type="date" name="dateOfInterviewUs" id="dateOfInterviewUs" class="form-control"
+                                value=<%=sDateOfInterviewUs ? sDateOfInterviewUs:'' %>>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginalDateOfInterviewUs(this)" /><img name="show-edited-version"
+                                src="/forward.png" height="20px" width="20"
+                                onclick="showEditedVersionDateOfInterviewUs(this)" /></span> <%}%>
+                    </div>
 
-                </div>
+                    </div>
                 <div class="form-entity right-box">
                     <label for="phone-number">
-                        Phone Number<input type="tel" class="form-control" id="phone-number"
-                            pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" name="phone-number"
+                        Phone Number:</label>
+                        <div class="box">
+                            <input type="tel" class="form-control" id="phoneNumber"
+                            pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" name="phoneNumber"
                             placeholder="Phone Number" value=<%= candidate.phoneNumber ? candidate.phoneNumber:'' %>>
-                    </label>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginal(this)" /><img name="show-edited-version" src="/forward.png"
+                                height="20px" width="20" onclick="showEditedVersion(this)" /></span>
+                        <%}%>
+                        </div>
                 </div>
-        </div>
-        <div>
+            </div>
+        
             <div class="form-info ">
                 <div class="form-entity left-box">
-                    <label for="languages">Languages Spoken:<input type="text" name="languages" placeholder="languages"
-                            class="form-control"
-                            value=<%=candidate.languages ? candidate.languages.join(", "): '' %>></label>
+                    <label for="languages">Languages Spoken:</label>
+                    <div class="box">
+                            <input type="text" name="languages" id="languages" class="form-control"
+                                placeholder="Languages" value=<%=candidate.languages ? candidate.languages.join(",\xA0"):'' %>>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginal(this)" /><img name="show-edited-version" src="/forward.png"
+                                height="20px" width="20" onclick="showEditedVersion(this)" /></span> <%}%>
+                    </div>
                 </div>
 
 
                 <div class="form-entity right-box">
-                    <label for="experience">Experience:<input name="experience" type="number" class="form-control"
-                            placeholder="Experience, in years"
-                            value=<%=candidate.experience ? candidate.experience : '' %>></label>
+                    <label for="experience">Experience:</label>
+                    <div class="box">
+                            <input type="number" name="experience" id="experience" class="form-control"
+                                placeholder="Experience" value=<%=candidate.experience ? candidate.experience:'' %>>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginal(this)" /><img name="show-edited-version" src="/forward.png"
+                                height="20px" width="20" onclick="showEditedVersion(this)" /></span> <%}%>
+                    </div>
                 </div>
 
             </div>
 
             <div class="form-info">
                 <div class="form-entity left-box">
-                    <label for="folder-name">Folder Name:
-                        <input type="text" name="folder-name" placeholder="Folder Name" class="form-control"
-                            value=<%= candidate.folderName ? candidate.folderName : '' %>>
-                    </label>
-
+                    <label for="folder-name">Folder Name:</label>
+                    <div class="box">
+                            <input type="text" name="folderName" id="folderName" class="form-control"
+                                placeholder="Folder Name" value=<%=candidate.folderName ? candidate.folderName:'' %>>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginal(this)" /><img name="show-edited-version" src="/forward.png"
+                                height="20px" width="20" onclick="showEditedVersion(this)" /></span>
+                        <%}%>
+                    </div>
 
                 </div>
                 <div class="form-entity right-box">
-                    <label for="keyWords">
-                        Keywords:<input type="text" placeholder="Keywords" class="form-control" name="key-words"
-                            value=<%=candidate.keyWords ? candidate.keyWords.join(", ") : ''%>>
-                    </label>
+                    <label for="keyWords">Keywords:</label>
+                    <div class="box">
+                            <input type="text" name="keyWords" id="keyWords" class="form-control"
+                                placeholder="Key Words" value=<%=candidate.keyWords ? candidate.keyWords.join(",\xA0"):'' %>>
+                        <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                        <span class="reverse-edit"><img name="back-to-original" src="/back.png" height="20px" width="20"
+                                onclick="backToOriginal(this)" /><img name="show-edited-version" src="/forward.png"
+                                height="20px" width="20" onclick="showEditedVersion(this)" /></span> <%}%>
+                    </div>
+
                 </div>
             </div>
             <div style="text-align: center;">
-                
-                <% for (cv in candidate.aCvURLs){ %>
-                <div> <a target="_new" href =<%=candidate.aCvURLs[cv]%>> Candidate CV page <%=parseInt(cv)+1%></a></div>
 
-                <%}%>
+                <% for (cv in candidate.aCvURLs){ %>
+                        <div id="cvURLs"> <a target="_new" href=<%=candidate.aCvURLs[cv]%>> Candidate CV page
+                                <%=parseInt(cv)+1%></a></div>
+
+                        <%}%>
             </div>
             
             <div style="text-align: center;">
                 <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="7"
                     value=<%=candidate.notes ? candidate.notes : '' %>></textarea>
-            </div>
+                    </div>
+                    <div style="text-align: center;">Last Modified:
+                        <%=candidate.lastModified?candidate.lastModified.toString().split("GMT")[0]:''%> </div>
+                    <%if (candidate.pendingEditApproval||isEditSuggestion){%>
+                    <div style="text-align: center;">Date of creation of Edit Suggestion:
+                        <%=candidate.creationDate?candidate.creationDate.toString().split("GMT")[0]:''%> </div>
+                    <%}%>
 
-        </div>
 
 
-        <div class="buttons">
-            <div class="left-box">
-                <button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save
-                    Candidate</button>
+
+                    <div class="buttons">
+                        <div class="left-box">
+                            <%if (currentUser =="sr"&&!isEditSuggestion){%>
+                    <button class="btn btn-primary" id="save-candidate" onclick="saveCandidate(event)">Save
+                        Candidate</button>
+                    <%}%>
+                <%if (currentUser =="jr"){%>
+                    <button class="btn btn-primary" id="suggest-edit" onclick="suggestEdit(event)">Suggest Edit
+                    </button>
+                    <%}%>
+                    <% if (isEditSuggestion){%>
+                    <button class="btn btn-primary" id="suggest-edit" onclick="saveChanges(event)">Save Changes
+                    </button>
+                    <%}%>
             </div>
             <div class="right-box">
                 <input type="file" name="cv" id="uploader" multiple="" required>
@@ -422,6 +633,54 @@
 
     </div>
     <script type="text/javascript">
+        window.addEventListener("load", myInit, true);
+        async function myInit() {
+            highlighter();
+            let id = window.location.href.split("/")[4];
+            console.log(id);
+
+            //get the candidate info to show when the user toggles between the suggested edit and the candidate info
+            fetch(`/candidate/${id}`)
+                .then((response) => { return response.json() })
+                .catch(err => console.log(err))
+                .then((candidate) => {
+                    window.candidate = candidate;
+                    if (window.candidate.sDateOfInterviewUs){
+                    window.candidate.sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs);
+                    console.log(window.candidate.sDateOfInterviewUs);
+                    }
+
+                    if (window.candidate.aParsedInterviewDates) {
+
+                        window.candidate.aParsedInterviewDates = window.candidate.aInterviewsInfo.map((interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) });
+                        console.log(window.candidate.aParsedInterviewDates);
+                    }
+                    
+
+                });
+            fetch(`/editsuggestion/${id}`)
+                .then((response) => { return response.json(); })
+                .catch(err => console.log(err))
+                .then((editSuggestion) => {
+                    window.editSuggestion = editSuggestion;
+                    window.editSuggestion.sDateOfInterviewUs = dateToStringParser(editSuggestion.dateOfInterviewUs);
+                    if (window.editSuggestion.aParsedInterviewDates) {
+
+                        window.editSuggestion.aParsedInterviewDates = window.editSuggestion.aInterviewsInfo.map((interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) });
+                    };
+
+                    console.log(window.editSuggestion);
+                });
+
+            // console.log("candidate",window.candidate);
+            //Get the edit suggestion made by the JR consultant
+            // fetch(`editsuggestion/${id}`)
+            // .then((response)=>{return response.json()})
+            // .then((editSuggestion)=>window.editSuggestion= editSuggestion)
+            // .catch((error)=>{console.log(error)});
+
+
+        };
         function highlighter() {
             const inputElements = document.getElementsByTagName("input");
             for (index in inputElements) {
@@ -436,7 +695,7 @@
             e.style.color = "black";
         }
 
-        window.onload = highlighter();
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -458,14 +717,14 @@
         function addFirm(e) {
 
             e.preventDefault();
-            const name = document.getElementById("firm-list").value;
+            const name = document.getElementById("firmList").value;
             firmList.push(name);
             if (name) {
                 $("#listed-firms").append(`<span id="${name}" class="single-firm">${name}
 					<span onclick="deleteFirm(this)" style="margin-left:10px; cursor:pointer;">x</span></span>`);
             }
             $("#firm-list").val("");
-            console.log("firmlist", firmList);
+            // console.log("firmlist", firmList);
 
         }
         function deleteFirm(element) {
@@ -476,7 +735,7 @@
 
             }
 
-            console.log('firmlist', firmList);
+            // console.log('firmlist', firmList);
             $(element).parent().remove();
 
 
@@ -503,13 +762,13 @@
                         $("#interviewInfo").append(`<div class="form-info "><div class="form-entity left-box">
 													<label for="firmName${i}">
 																	Firm Name:
-													<input type="text" name="firm-name${i}" placeholder="Firm Name" class="form-control">
+													<input type="text" name="firmName${i}" placeholder="Firm Name" class="form-control">
 												</label>
 
 											</div>
 											<div class="form-entity right-box">
 												<label for="interviewDateFirm${i}">Date of Interview:
-													<input type="date" name="interview-date-firm${i}" class="form-control">
+													<input type="date" name="intervieDateFirm${i}" class="form-control">
 												</label>
 												
 												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)">
@@ -538,8 +797,6 @@
                     }
                 }
             }
-
-            console.log(interviewInputAreasCount);
         }
         function phoneNumberValidator(phoneNumber) {
             //We only want to validate it if the field has been filled
@@ -565,47 +822,264 @@
                 return true;
             }
         }
+        const mcQuaigParser = (score) => {
+            if (score === "NA" || score == "" || score == undefined) {
+                const parsedScore = { wrong: 0, empty: 0, correct: 0 };
+                return parsedScore;
+
+            }
+            else {
+                const aScores = score.split("-");
+                const parsedScore = { wrong: aScores[0], empty: aScores[1], correct: aScores[2] };
+                return parsedScore;
+            }
+        }
         function saveCandidate(e) {
             emailValidator(document.getElementById('email').value);
-           
             e.preventDefault();
             let form = document.getElementById('candidate-data'),
                 formData = new FormData(form),
-                id=window.location.href.split("/")[4];
-
-            formData.append('id', id)
-
+                id = window.location.href.split("/")[4];
+            //add ID to the formdata to be able to query the candidate that we want to edit
+            formData.append('id', id);
+            formData.append('lastModified', new Date());
             let isValidated = false;
-            if (document.getElementById('first-name').value && document.getElementById('last-name').value && document.getElementById('gender').value) {
+            if (document.getElementById('firstName').value && document.getElementById('lastName').value && document.getElementById('gender').value) {
                 isValidated = true;
             }
-            if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
-                console.log(id);
-            //     for (let pair of formData.entries()){
-            //     console.log(pair[0]+"-"+pair[1]);
+            // if (isValidated && emailValidator(document.getElementById('email').value) && phoneNumberValidator(document.getElementById('phone-number').value)) {
+
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + "-" + pair[1]);
+            // }
+            fetch(`/candidate/${id}/edit`, {
+                method: 'PUT',
+                header: { "Content-Type": "multipart/form-data" },
+                body: formData
+
+            })
+                .then(location.reload())
+                .catch(err => console.log(err));
+
+            // }
+            // else if (!isValidated) {
+            //     alert('please enter all fields necessary');
+            // }
+            // else if (!emailValidator(document.getElementById('email').value)) {
+            //     alert('Please enter a valid E-mail address');
+            // }
+            // else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
+            //     alert('Please enter a valid phone number');
             // }
 
-                fetch(`/candidate/${id}/edit`, {
-                    method: 'PUT',
-                    header:{"Content-Type":"multipart/form-data"},
-                    body: formData
-                    
-                })
-                .then(location.reload())
-                .catch(err=>console.log(err));
-                    
+
+
+
+        }
+        const dateToStringParser = function (date) {
+            date = new Date(date);
+            let month = date.getMonth() > 9 ? (date.getMonth() + 1).toString() : "0" + (date.getMonth() + 1),
+                day = date.getDate() > 9 ? date.getDate().toString() : "0" + date.getDate()
+            year = date.getFullYear();
+            return year + "-" + month + "-" + day;
+
+
+
+        }
+
+        function backToOriginal(element) {
+            //console.log(element);
+            let infoName = element.parentNode.parentNode.children[0].name;
+            console.log(infoName)
+            element.parentNode.parentNode.children[0].value = window.candidate[infoName];
+
+            //console.log(infoName);
+        }
+        function backToOriginalScore(element) {
+            const infoName = element.parentNode.parentNode.children[0].name,
+                // read each field of the score and add them together to shape the final score
+                score = window.candidate['score'].wrong + " " + window.candidate['score'].empty + " " + window.candidate['score'].correct;
+            console.log(candidate);
+            element.parentNode.parentNode.children[0].value = score;
+
+
+        }
+        function backToOriginalDateOfInterviewUs(element) {
+            const target = element.parentNode.parentNode.children[0],
+                inputName = element.parentNode.parentNode.children[0].name,
+                date = window.candidate['sDateOfInterviewUs'];
+            console.log("in the function,", date);
+            target.value = date;
+
+        }
+        function showEditedVersionDateOfInterviewUs(element) {
+            const target = element.parentNode.parentNode.children[0],
+                inputName = element.parentNode.parentNode.children[0].name,
+
+                date = window.editSuggestion['sDateOfInterviewUs'];
+           
+            target.value = date;
+        }
+        function backToOriginalDateOfInterviewFirm(element) {
+            const target = element.parentNode.parentNode.children[0],
+                inputName = element.parentNode.parentNode.children[0].name,
+                date = window.candidate['sDateOfInterviewUs'];
+            console.log("in the function,", date);
+            target.value = date;
+
+        }
+        function showEditedVersionDateOfInterviewFirm(element) {
+            const target = element.parentNode.parentNode.children[0],
+                inputName = element.parentNode.parentNode.children[0].name,
+                date = window.candidate['sDateOfInterviewUs'];
+            console.log("in the function,", date);
+            target.value = date;
+        }
+        function showEditedVersion(element) {
+            //find the name of the text input so we know which one of the candidate info to call
+            infoName = element.parentNode.parentNode.children[0].name;
+            //set the value of the text input to the candidate info
+            element.parentNode.parentNode.children[0].value = window.editSuggestion[infoName];
+        }
+        //Since McQuaig score is an object, we need a different function to set it's value
+        function showEditedVersionScore(element) {
+            const infoName = element.parentNode.parentNode.children[0].name,
+                // read each field of the score and add them together to shape the final score
+                score = editSuggestion['score'].wrong + " " + editSuggestion['score'].empty + " " + editSuggestion['score'].correct;
+            element.parentNode.parentNode.children[0].value = score;
+
+
+        }
+        //for the arrays, we need a different type of function to join the entries and make a string
+        function showEditedVersionArray(element) {
+
+        }
+        function suggestEdit(e) {
+            emailValidator(document.getElementById('email').value);
+            e.preventDefault();
+            let form = document.getElementById('candidate-data'),
+                formData = new FormData(form),
+                id = window.location.href.split("/")[4],
+                aCvURLs = [];
+            //Add the candidate id to the formData
+            formData.append('id', id);
+            formData.append('lastModified', new Date());
+            for (let cvLink of document.getElementById("cvURLs").children) {
+                aCvURLs.push(cvLink.href);
+                //console.log(cvURL);
             }
-            else if (!isValidated) {
-                alert('please enter all fields necessary');
+            console.log(aCvURLs);
+            formData.append('aCvURLs', aCvURLs);
+            let isValidated = false;
+            if (document.getElementById('firstName').value && document.getElementById('lastName').value && document.getElementById('gender').value) {
+                isValidated = true;
             }
+            if (emailValidator(document.getElementById('email').value)) {
+
+
+                //console.log(document.getElementById("cvURLs").children);
+                //&& phoneNumberValidator(document.getElementById('phone-number').value
+                // for (let pair of formData.entries()) {
+                //     console.log(pair[0] + "-" + pair[1]);
+                // }
+
+                fetch(`/candidate/${id}/suggestedit`,
+                    {
+                        method: 'POST',
+                        header: { "Content-Type": "multipart/form-data" },
+                        body: formData
+
+                    })
+
+                    .then(function (response) {
+                        console.log(response);
+                        alert("Your edit suggestion has been sent and is now pending approval!");
+                        window.location = "/";
+                    })
+                // .then((response)=>{return response.json()})
+                // .then((candidate)=>{let oCandidate=JSON.stringify(candidate)})
+                // .catch(err => console.log(err));
+
+            }
+            // else if (!isValidated) {
+            //     alert('please enter all fields necessary');
+            // }
             else if (!emailValidator(document.getElementById('email').value)) {
                 alert('Please enter a valid E-mail address');
             }
-            else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
-                alert('Please enter a valid phone number');
+            // else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
+            //     alert('Please enter a valid phone number');
+            // }
+
+
+
+
+        }
+        function saveChanges(e) {
+            emailValidator(document.getElementById('email').value);
+            e.preventDefault();
+            let form = document.getElementById('candidate-data'),
+                formData = new FormData(form),
+                id = window.location.href.split("/")[4],
+                aCvURLs = [];
+            //Add the candidate id to the formData
+            formData.append('id', id);
+            formData.append('lastModified', new Date());
+            for (let cvLink of document.getElementById("cvURLs").children) {
+                aCvURLs.push(cvLink.href);
+                //console.log(cvURL);
             }
+            console.log(aCvURLs);
+            formData.append('aCvURLs', aCvURLs);
+            let isValidated = false;
+            if (document.getElementById('firstName').value && document.getElementById('lastName').value && document.getElementById('gender').value) {
+                isValidated = true;
+            }
+            if (emailValidator(document.getElementById('email').value)) {
 
 
+                //console.log(document.getElementById("cvURLs").children);
+                //&& phoneNumberValidator(document.getElementById('phone-number').value
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + "-" + pair[1]);
+                }
+
+                
+                    fetch(`/editsuggestion/${id}/delete`,
+                        {
+                            method: 'DELETE',
+
+                        })
+                    .then(fetch(`/candidate/${id}/approve`,
+                    {
+                        method: 'PUT',
+                        header: { "Content-Type": "multipart/form-data" },
+                        body: formData
+
+                    }))
+                    .then(function (response) {
+                        console.log(response);
+                        alert("Your changes have been made to the candidate!");
+                        //window.location = "/";
+                    })
+                    .catch((err) => { console.log(err) });
+
+
+
+                // .then((response)=>{return response.json()})
+                // .then((candidate)=>{let oCandidate=JSON.stringify(candidate)})
+                // .catch(err => console.log(err));
+
+            }
+            // else if (!isValidated) {
+            //     alert('please enter all fields necessary');
+            // }
+            else if (!emailValidator(document.getElementById('email').value)) {
+                alert('Please enter a valid E-mail address');
+            }
+            // else if (!phoneNumberValidator(document.getElementById('phone-number').value)) {
+            //     alert('Please enter a valid phone number');
+            // }
 
 
         }

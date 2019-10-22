@@ -29,7 +29,7 @@ const cvFolderUploader = function(oReq){
 
                     //Take the user input and store them to pass it to the database
                     let cvURL = result.url;
-
+                    console.log("candidateList",candidateList[0]);
                     //Add the uploaded cv to the cvURLs array
                     candidateList[i].aCvURLs.push(cvURL);
                     console.log(candidateList[i]);

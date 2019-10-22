@@ -1,0 +1,190 @@
+<html>
+
+<head>
+	<title>Candidate List</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.u-full-width {
+			max-width: 1200px;
+			width: 100%;
+			margin: auto;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		/* Add a black background color to the top navigation */
+		.topnav {
+			position: relative;
+			background-color: #333;
+			overflow: hidden;
+		}
+
+		/* Style the links inside the navigation bar */
+		.topnav a {
+			float: left;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		/* Change the color of links on hover */
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+
+		/* Add a color to the active/current link */
+		.topnav a.active {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		/* Centered section inside the top navigation */
+		.topnav-centered a {
+			float: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		/* Right-aligned section inside the top navigation */
+		.topnav-right {
+			float: right;
+		}
+
+		/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+		@media screen and (max-width: 600px) {
+
+			.topnav a,
+			.topnav-right {
+				float: none;
+				display: block;
+			}
+
+			.topnav-centered a {
+				position: relative;
+				top: 0;
+				left: 0;
+				transform: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="topnav">
+
+		<!-- Centered link -->
+
+
+		<!-- Left-aligned links (default) -->
+		<a href="/candidate/new">Add a Candidate</a>
+		<a href="/search-candidates">Search</a>
+		<a href="/upload">Upload Files</a>
+		<a href="/logout">Log Out</a>
+	</div>
+	<!-- EJS template that represents the html structure originally build in renderHeroes and buildHero function -->
+	<h1>Pending Approval</h1>
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Last Name</th>
+				<th>Target Position</th>
+				<th>Experience</th>
+
+				<th>University</th>
+				<th>Department</th>
+				<th>Expected Salary</th>
+				<th>McQuaig Score</th>
+				<th>CV Link</th>
+				<th>File Name</th>
+				<% if(currentUser.userType==="superAdmin"||currentUser.userType==="sr"){%>	
+
+				<th>Action</th>
+				<%}%>
+			</tr>
+		</thead>
+		<tbody>
+
+			<!-- BEGIN iterate all heroes with lodash forEach function -->
+			<% candidates.forEach(function(candidate, index) { %>
+			<tr>
+				<td id=<%=candidate.firstName %>>
+					<%= candidate.firstName.charAt(0).toUpperCase()+candidate.firstName.substring(1); %></td>
+				<td id=<%=candidate.lastName %>>
+					<%= candidate.lastName.charAt(0).toUpperCase()+candidate.lastName.substring(1); %></td>
+				<td id=<%=candidate.wantedPosition %>>
+					<%= candidate.wantedPosition?candidate.wantedPosition.charAt(0).toUpperCase()+candidate.wantedPosition.substring(1):'NA' %>
+				</td>
+				<td id=<%=candidate.experience?candidate.experience:'NA'%>>
+					<%=candidate.experience?candidate.experience+candidate.experience:'NA'%></td>
+				<td id=<%=candidate.uni?candidate.uni:'NA' %>><%= candidate.uni?candidate.uni:'NA' %></td>
+				<td id=<%=candidate.fieldOfStudy ? candidate.fieldOfStudy:'NA' %>>
+					<%=candidate.fieldOfStudy ? candidate.fieldOfStudy:'NA'%></td>
+				<td id=<%=candidate.expectedSalary ? candidate.expectedSalary:'NA'%>>
+					<%=candidate.expectedSalary?candidate.expectedSalary:'NA' %></td>
+
+
+				<td id=<%= candidate.score?candidate.score.wrong+candidate.score.empty+candidate.score.correct:'NA' %>>
+					<%= candidate.score.correct?(candidate.score.wrong+" "+candidate.score.empty+" "+candidate.score.correct):'NA' %>
+				</td>
+				<td id=<%= candidate.aCvURLs[0]?candidate.firstName+candidate.aCvURLs[0]:'NA' %></td> <a target="_new"
+					href=<%=candidate.aCvURLs[0]?candidate.aCvURLs[0]:'NA'%>>CV
+					link</a></td>
+				<td id=<%=candidate.folderName?candidate.folderName:'NA' %>>
+					<%=candidate.folderName?candidate.folderName:'NA'%></td>
+				
+				<td><a href="/candidate/<%=candidate['_id']%>/edit-suggestion"><button class="btn btn-primary"
+							onclick="edit(event)" id=<%=candidate['_id']+"edit"%>>REVIEW EDIT</button></a></td>
+				
+                    
+					
+				<% if(currentUser.userType==="superAdmin"){%>	
+
+				<td><button class="btn btn-primary" onclick="del(event)" id=<%=candidate['_id'] %>> Delete</button></td>
+				<%}%>
+			</tr>
+			<% }); %>
+			<!-- END iterate all heroes with lodash forEach function -->
+		</tbody>
+	</table>
+	<script>
+
+		function edit(e) {
+			fetch(`/candidate/${id}/edit`);
+
+
+		}
+
+		function del(e) {
+			console.log(e.target.id);
+			console.log("Hello");
+			let id = e.target.id;
+			console.log(id);
+			console.log(`/candidate/${id}/delete`);
+			deleteConfirmed = confirm("Are you sure you want to delete this candidate?");
+			if (deleteConfirmed) {
+				fetch(`/candidate/${id}/delete`, { method: 'POST' })
+					.then(window.location.reload())
+					.catch((err) => console.log(err));
+			}
+
+		}
+
+	</script>
+
+
+</body>
+
+</html>

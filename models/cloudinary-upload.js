@@ -1,17 +1,17 @@
-const 	createCandidate = require('./createCandidate'),
-		candidateUpdate = require('./candidateUpdate');
+const createCandidate = require('./createCandidate'),
+	candidateUpdate = require('./candidateUpdate');
 
-	  	cloudinary = require('cloudinary').v2;	
+cloudinary = require('cloudinary').v2;
 
 
 //This function saves candidate into the DB, and uploads the CV
-function saveCandUpCV(req,method) {
-	let aCvURLs=[];
+function saveCandUpCV(req, method) {
+	let aCvURLs = [];
 
 	//Upload the CV onto the cloud
-	
+
 	for (let i = 0; i < req.files.length; i++) {
-		
+
 		cloudinary.uploader.upload(req.files[i].path, {
 			public_id: req.body['first-name'] + " "
 				+ req.body['last-name'] + " " +
@@ -22,48 +22,63 @@ function saveCandUpCV(req,method) {
 			}
 			else {
 				aCvURLs.push(result.url);
-				console.log(result);
+				console.log("cloudinary results",result);
 				if (i == req.files.length - 1) {
-					if (method=="create"){
-					createCandidate(req.body, aCvURLs, function (error, candidate) {
-						if (error) {
-							console.log(error);
-						}
-						else {
-							console.log(candidate);
-						}
-					});
-				}
-				else if(method="update"){
-					candidateUpdate(req.body,req.body.id, aCvURLs, function (error, candidate) {
-						if (error) {
-							console.log(error);
-						}
-						else {
-							console.log(candidate);
-						}
-					});
-				}
+					if (method == "create") {
+						createCandidate(req.body, aCvURLs, function (error, candidate) {
+							if (error) {
+								console.log(error);
+							}
+							else {
+								console.log(candidate);
+							}
+						});
+					}
+					else if (method = "update") {
+						candidateUpdate(req.body, req.body.id, aCvURLs, function (error, candidate) {
+							if (error) {
+								console.log(error);
+							}
+							else {
+								console.log(candidate);
+							}
+						});
+
+					}
+					else if (method = "approve") {
+						req.body.pendingEditApproval = false;
+						candidateUpdate(req.body, req.body.id, aCvURLs, function (error, candidate) {
+							if (error) {
+								console.log(error);
+							}
+							else {
+								console.log("candidate coming from approve method",candidate);
+							}
+						});
+
+					}
+
+					
 				}
 			}
 		});
 	}
-	if (req.files.length===0){
-		candidateUpdate(req.body,req.body.id, [], function (error, candidate) {
-			if (error){
+	if (req.files.length === 0) {
+		candidateUpdate(req.body, req.body.id, [], function (error, candidate) {
+			if (error) {
 				console.long(error);
 			}
-			else{
-				console.log(candidate);
+			else {
+				console.log("updated candidate",candidate);
 			}
 
 
-	});
-	
-	
-	
+		});
 
 
-}
+
+
+
+	}
 }
 module.exports = saveCandUpCV;
