@@ -1,7 +1,7 @@
 const EditSuggestions     =  require('./editSuggestions'),
       ObjectId            =  require('mongodb').ObjectID,
       mcQuaigParser =  require('./mcQuaigParser');
-function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
+function createEditSuggestions(oCandidate,_id,aCvURLs){
     const   firstName               = oCandidate['firstName'].toLowerCase(),
             lastName                = oCandidate['lastName'].toLowerCase(),
             email                   = oCandidate.email.toLowerCase(),

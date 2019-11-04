@@ -33,7 +33,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 router.get('/',isLoggedIn, function (req, res) {
 	res.render("main-page",{userType:req.user.userType});
-	console.log(req.user);
 });
 
 //Routing for candidate search
@@ -107,7 +106,6 @@ router.post("/candidate/:id/delete", (req, res) => {
 //Candidate edit route
 
 router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
-	// if (req.user.userType==="sr"||req.user.userType==="superAdmin"){
 	Candidate.findOne({ _id: req.params.id })
 		.then((candidate) => {
 			
@@ -121,32 +119,14 @@ router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
 			res.render('edit-candidate', { candidate: candidate,isEditSuggestion:false,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs, currentUser:req.user.userType });
 		})
 		.catch((err) => { console.log(err) });
-	//}
-	// else if(req.user.userType==="jr"){
-	// 	Candidate.findOne({ _id: req.params.id })
-	// 	.then((candidate) => {
-			
-			
-
-	// 		const sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs),
-	// 			  aParsedInterviewDates = [];
-	// 		candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
-
-			
-	// 		res.render('edit-candidate', { candidate: candidate,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs });
-	// 		//console.log(candidate)
-	// 	})
-	// 	.catch((err) => { console.log(err) });
-	// }
+	
 
 });
 router.put("/candidate/:id/approve",(req,res)=>{});
 router.put("/candidate/:id/edit",isLoggedIn,upload.array('cv', 8),(req,res)=>{
 	saveCandUpCV(req,"update");
-	//res.render('index');
 });
 router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
-	// if (req.user.userType==="sr"||req.user.userType==="superAdmin"){
 	EditSuggestion.findOne({ _id: req.params.id })
 		.then((editSuggestion) => {
 			
@@ -160,23 +140,11 @@ router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
 			res.render('edit-candidate', { candidate: editSuggestion,isEditSuggestion:true,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs, currentUser:req.user.userType });
 		})
 		.catch((err) => { console.log(err) });
-	//}
-	// else if(req.user.userType==="jr"){
-	// 	Candidate.findOne({ _id: req.params.id })
-	// 	.then((candidate) => {
+	
 			
 			
 
-	// 		const sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs),
-	// 			  aParsedInterviewDates = [];
-	// 		candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
-
-			
-	// 		res.render('edit-candidate', { candidate: candidate,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs });
-	// 		//console.log(candidate)
-	// 	})
-	// 	.catch((err) => { console.log(err) });
-	// }
+	
 
 });
 router.post("/candidate/:id/suggestedit",isLoggedIn,upload.array('cv',8),(req,res)=>{
@@ -186,7 +154,7 @@ router.post("/candidate/:id/suggestedit",isLoggedIn,upload.array('cv',8),(req,re
 			console.log(error);
 		}
 		else{
-			console.log(result)
+			console.log("The candidate that was edited, ",result)
 		}
 	});
 	res.send();
@@ -198,10 +166,10 @@ router.get("/candidate/:id",isLoggedIn,(req,res)=>{
 		if(err){
 			console.log(err);
 		}
-		console.log(candidate);
 		res.send(candidate);
 	});
 });
+
 router.get("/editsuggestion/:id",isLoggedIn,(req,res)=>{
 	EditSuggestion.findOne({'_id':ObjectId(req.params.id)},(err,editSuggestion)=>{
 		if(err){
@@ -233,7 +201,7 @@ router.delete('/editsuggestion/:id/delete',function(req,res){
 });
 //Route for any wrong URL s
 router.get("*", function (req, res) {
-	res.send("YOURE a STAR");
+	res.send("You came to the wrong neighborhood buddy!");
 });
 
 
