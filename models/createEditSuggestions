@@ -18,11 +18,17 @@ function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
             dataEnterer             = oCandidate['dataEnterer'].toLowerCase(),
             fieldOfStudy            = oCandidate['fieldOfStudy'].toLowerCase(),
             //We first turn the string into all lower case. We then split the string by the commas, and finally we get rid of whitespaces at the end and beinning of entries
-            techsUsed                = oCandidate['techsUsed']?oCandidate['techsUsed'].toLowerCase().split(",").map((techUsed)=> {return techUsed.trim();}):'',
+            techsUsed                = oCandidate['techsUsed']?oCandidate['techsUsed']
+            .toLowerCase()
+            .split(",")
+            .map((techUsed)=> {return techUsed.trim();}):'',
             aInterviewsInfo         = [],
             dateOfInterviewUs       = oCandidate['dateOfInterviewUs'],
             phoneNumber             = oCandidate['phoneNumber'],
-            languages               = oCandidate.languages.toLowerCase().split(",").map((language)=>{return language.trim();}),
+            languages               = oCandidate.languages
+            .toLowerCase()
+            .split(",")
+            .map((language)=>{return language.trim();}),
             experience              = oCandidate.experience,
             folderName              = oCandidate['folderName'].toLowerCase(),
             keyWords                = oCandidate['keyWords'].toLowerCase().split(",").map((keyWord)=>{return keyWord.trim();})
@@ -34,7 +40,8 @@ function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
         if (oCandidate[`firmName${i}`]){
         aInterviewsInfo.push({'firmName': oCandidate[`firmName${i}`],'interviewDate':oCandidate[`interviewDateFirm${i}`]});
     }
-}          
+}   
+return new Promise((resolve,reject)=>{
     EditSuggestions.create({
         _id,
          firstName        ,
@@ -52,7 +59,7 @@ function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
          interviewer      ,
          dataEnterer      ,
          fieldOfStudy     ,
-         techsUsed         ,
+         techsUsed        ,
          aInterviewsInfo  ,
          dateOfInterviewUs,
          phoneNumber      ,
@@ -63,13 +70,11 @@ function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
          notes            ,
          creationDate     ,
          aCvURLs           
-}, function(err, editSuggestions){
-    if(err){
-        cb(err,undefined);
-    }
-    else{
-        cb(undefined,editSuggestions);
-    }
-});
+})
+.then((result)=>resolve(result))
+.catch((error)=>reject(error));
+
+});       
+    
 }
 module.exports=createEditSuggestions;

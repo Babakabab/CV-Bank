@@ -10,19 +10,19 @@ const createEditSuggestions = require('./createEditSuggestions'),
 function saveEditSuggestionUpCV(req, cb) {
 
 	let aCvURLs = req.aCvURLs;
-	//This is the quality percentage of the photo
-	let quality = 15;
+	let imageQuality = 15;
 
 	//Upload the CV onto the cloud
 
 	for (let i = 0; i < req.files.length; i++) {
-		let public_id = req.body['first-name'].append(" "+ req.body['last-name'])
+		let public_id = req.body['first-name']
+		.append(" "+ req.body['last-name'])
 		.append(" " +req.body.position) 
 		.append( " " + req.body.uni)
 		.append("page-" + i);
 		
 		cloudinary.uploader.upload(req.files[i].path, {
-			public_id , quality
+			public_id , imageQuality
 		}, function (error, result) {
 			if (error) {
 				console.log(error);

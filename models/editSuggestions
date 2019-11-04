@@ -33,7 +33,7 @@ var editSuggestionsSchema = new mongoose.Schema({
 	dateOfInterviewUs   : Date
 
 });
-editSuggestionsSchema.index({firstName:1,lastName:1,uni:1,score:1},{unique:true});
+editSuggestionsSchema.index({firstName:1,lastName:1,uni:1},{unique:true});
 var EditSuggestions = mongoose.model("EditSuggestions", editSuggestionsSchema);
 
 module.exports =EditSuggestions; 
