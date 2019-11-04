@@ -8,65 +8,99 @@ const createEditSuggestions = require('./createEditSuggestions'),
 
 //This function saves candidate into the DB, and uploads the CV
 function saveEditSuggestionUpCV(req, cb) {
+console.log(req.body);
+let public_id = "".concat(
+	req.body['firstName'],
+	" " ,req.body['lastName'],
+	" " , req.body.position,
+	" " , req.body.uni,
+	" page-"),
+		quality = 15;
+let {aCvURLs} = req.body;
+let LAST_CV_PAGE=req.files.length-1;
+for (i=0;i<req.files.length;i++){
+	cloudinary.uploader.upload(req.files[index].path,
+		 {public_id, quality},
+		  function (error, result) {
+		if (error) {
+			cb(err);
+		}
+		else{
+			if (i == LAST_CV_PAGE) {
+				createEditSuggestions(req.body, req.id, aCvURLs)
+				.then((editSuggestion)=>{resolve(editSuggestion)})
+				.catch(err=>{
+					cb(err,null);
 
-	let aCvURLs = req.aCvURLs;
-	//This is the quality percentage of the photo
-	let quality = 15;
-
-	//Upload the CV onto the cloud
-
-	for (let i = 0; i < req.files.length; i++) {
-		let public_id = req.body['first-name'].append(" "+ req.body['last-name'])
-		.append(" " +req.body.position) 
-		.append( " " + req.body.uni)
-		.append("page-" + i);
+				})
+			}
+		}
 		
-		cloudinary.uploader.upload(req.files[i].path, {
-			public_id , quality
+
+	}
+	);
+		
+		
+	}
+
+
+
+
+
+if (req.files.length === 0) {
+	createEditSuggestions(req.body, req.body.id, aCvURLs)
+		.then(() => {
+			return Candidate.findOneAndUpdate(ObjectId(req.body.id), { $set: {pendingEditApproval: true } });
+		})
+		.then(candidate => console.log(
+			"Successfully added candidate to edit suggestion and changed the status to pending edit approval", candidate))
+		.catch();
+
+	createEditSuggestions(req.body, req.body.id, aCvURLs, function (error, editSuggestion) {
+		if (error) {
+			cb(error, undefined);
+		}
+		else {
+			//flag the candidate that is pending approval
+			Candidate.findOneAndUpdate(ObjectId(req.body.id), { $set: { pendingEditApproval: true } })
+			.then((candidate)=>{cb(null,editSuggestion)})
+			.catch(error=>{cb(error,null)});
+			
+		}
+
+
+	});
+
+
+
+
+
+}
+}
+
+function uploadToCloudinary(req, index) {
+	let public_id = req.body['first-name'].append(" " + req.body['last-name'])
+		.append(" " + req.body.position)
+		.append(" " + req.body.uni)
+		.append("page-" + i),
+		quality = 15;
+
+	return new Promise((resolve, reject) => {
+		cloudinary.uploader.upload(req.files[index].path, {
+			public_id, quality
 		}, function (error, result) {
 			if (error) {
-				console.log(error);
+				reject(error);
 			}
 			else {
-				aCvURLs.push(result.url);
-				console.log(result);
-				if (i == req.files.length - 1) {
-
-					createEditSuggestions(req.body, req.id, aCvURLs, function (error, editSuggestion) {
-						if (error) {
-							cb(error,undefined);
-						}
-						else {
-							cb(undefined,editSuggestion);
-						}
-					});
-
-
-				}
-			}
-		});
-	}
-	if (req.files.length === 0) {
-		createEditSuggestions(req.body, req.body.id, aCvURLs, function (error, editSuggestion) {
-			if (error) {
-				cb(error,undefined);
-			}
-			else {
-				Candidate.findOneAndUpdate( ObjectId(req.body.id) ,{$set: { pendingEditApproval: true }} , function (error, updatedCandidate) {
-					if (error) {
-						cb(error,undefined);
-					}
-					else (cb(undefined,updatedCandidate));
-				});
+				resolve(result)
 			}
 
-
-		});
-
-
+		}
+		);
 
 
 
-	}
+	});
 }
 module.exports = saveEditSuggestionUpCV;
