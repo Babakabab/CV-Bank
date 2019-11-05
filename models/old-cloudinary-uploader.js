@@ -15,8 +15,7 @@ function saveEditSuggestionUpCV(req, cb) {
 	//Upload the CV onto the cloud
 
 	for (let i = 0; i < req.files.length; i++) {
-		let public_id = req.body['first-name']
-		.append(" "+ req.body['last-name'])
+		let public_id = req.body['first-name'].append(" "+ req.body['last-name'])
 		.append(" " +req.body.position) 
 		.append( " " + req.body.uni)
 		.append("page-" + i);

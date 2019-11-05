@@ -8,7 +8,6 @@ const createEditSuggestions = require('./createEditSuggestions'),
 
 //This function saves candidate into the DB, and uploads the CV
 function saveEditSuggestionUpCV(req, cb) {
-	console.log("The id that is being sent to the saveeditsuggestion",req.body.id);
 	let public_id = "".concat(
 		req.body['firstName'],
 		" ", req.body['lastName'],
@@ -16,7 +15,7 @@ function saveEditSuggestionUpCV(req, cb) {
 		" ", req.body.uni,
 		" page-"),
 		quality = 15;
-	let { aCvURLs } = req.body;
+	let  aCvURLs  = req.body.aC;
 	let LAST_CV_PAGE = req.files.length - 1;
 	for (i = 0; i < req.files.length; i++) {
 		cloudinary.uploader.upload(req.files[index].path,
@@ -48,21 +47,20 @@ function saveEditSuggestionUpCV(req, cb) {
 
 
 	if (req.files.length === 0) {
-		// createEditSuggestions(req.body, req.body.id, aCvURLs)
-		// 	.then(() => {
-		// 		return Candidate.findOneAndUpdate(ObjectId(req.body.id), { $set: { pendingEditApproval: true } });
-		// 	})
-		// 	.then(candidate => console.log(
-		// 		"Successfully added candidate to edit suggestion and changed the status to pending edit approval", candidate))
-		// 	.catch();
+		
 
 		createEditSuggestions(req.body, req.body.id, aCvURLs)
-			.then((editSuggestion) => {
+			.then(() => {
+				console.log("this is the id",req.body.id);
 				//flag the candidate that is pending approval
-				cb(null,editSuggestion);
-				return Candidate.findOneAndUpdate(ObjectId(req.body.id), { $set: { pendingEditApproval: true } });
+				Candidate.findOneAndUpdate({_id:ObjectId(req.body.id)}, { $set: { pendingEditApproval: true } },{useFindAndModify:false},(err,doc)=>{
+					if(err){console.log(err);}
+					else{console.log(doc.firstName);}
+				});
 			})
-			.then((candidate) => { cb(null, candidate) })
+			// .then((candidate) => { 
+			// 	console.log("So this is the candidate", candidate);
+			// 	cb(null, candidate) })
 			.catch(error => { cb(error, null) });
 
 

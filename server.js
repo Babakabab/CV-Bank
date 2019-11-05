@@ -59,7 +59,6 @@ router.get('/candidate/new',isLoggedIn, function (req, res) {
 //This post method adds a candidate into our database
 router.post('/candidate/new', upload.array('cv', 8), function (req, res) {
 	//Upload the CV to the cloud, wait for the program to finish, create a candidate and save in the database
-	console.log(req.body);
 	saveCandUpCV(req,"create");
 
 	//Rerender the page to enter another candidate
@@ -108,9 +107,6 @@ router.post("/candidate/:id/delete", (req, res) => {
 router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
 	Candidate.findOne({ _id: req.params.id })
 		.then((candidate) => {
-			
-			
-
 			const sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs),
 				  aParsedInterviewDates = [];
 			candidate.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
@@ -123,32 +119,42 @@ router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
 
 });
 router.put("/candidate/:id/approve",(req,res)=>{});
+
 router.put("/candidate/:id/edit",isLoggedIn,upload.array('cv', 8),(req,res)=>{
 	saveCandUpCV(req,"update");
 });
+
 router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
-	EditSuggestion.findOne({ _id: req.params.id })
+	console.log(req.params.id);
+	EditSuggestion.findOne({ _id: ObjectId(req.params.id) }).exec()
 		.then((editSuggestion) => {
 			
 			
 
 			const sDateOfInterviewUs = dateToStringParser(editSuggestion.dateOfInterviewUs),
 				  aParsedInterviewDates = [];
-			editSuggestion.aInterviewsInfo.map((interviewInfo)=>{aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate)); });
+			editSuggestion.aInterviewsInfo.map((interviewInfo)=>{
+				aParsedInterviewDates.push(dateToStringParser(interviewInfo.interviewDate));
+			 });
 
 			
-			res.render('edit-candidate', { candidate: editSuggestion,isEditSuggestion:true,aParsedInterviewDates : aParsedInterviewDates, sDateOfInterviewUs: sDateOfInterviewUs, currentUser:req.user.userType });
+			res.render('edit-candidate', { 
+				candidate: editSuggestion,
+				isEditSuggestion:true,
+				aParsedInterviewDates : aParsedInterviewDates,
+				sDateOfInterviewUs: sDateOfInterviewUs,
+				currentUser:req.user.userType 
+				});
 		})
 		.catch((err) => { console.log(err) });
 	
 			
-			
+			 
 
 	
 
 });
 router.post("/candidate/:id/suggestedit",isLoggedIn,upload.array('cv',8),(req,res)=>{
-	console.log("request body made at suggest edit route \n");
 	saveEditSuggestionUpCV(req,(error,result)=>{
 		if (error){
 			console.log(error);
@@ -158,10 +164,10 @@ router.post("/candidate/:id/suggestedit",isLoggedIn,upload.array('cv',8),(req,re
 		}
 	});
 	res.send();
+	
 });
 router.get("/candidate/:id",isLoggedIn,(req,res)=>{
 	//Create a function that makes a DB inquiry then returns the candidate as an object
-	console.log(req.params.id);
 	Candidate.findOne({'_id':ObjectId(req.params.id)},(err,candidate)=>{
 		if(err){
 			console.log(err);
