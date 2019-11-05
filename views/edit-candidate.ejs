@@ -666,8 +666,10 @@
                     window.editSuggestion.sDateOfInterviewUs = dateToStringParser(editSuggestion.dateOfInterviewUs);
                     if (window.editSuggestion.aParsedInterviewDates) {
 
-                        window.editSuggestion.aParsedInterviewDates = window.editSuggestion.aInterviewsInfo.map((interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) });
-                    };
+                        window.editSuggestion.aParsedInterviewDates = window.editSuggestion.aInterviewsInfo.map(
+                            (interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) 
+                            });
+                    }
 
                     console.log(window.editSuggestion);
                 });
@@ -955,6 +957,7 @@
 
         }
         function suggestEdit(e) {
+            console.log("yooooo")
             emailValidator(document.getElementById('email').value);
             e.preventDefault();
             let form = document.getElementById('candidate-data'),
@@ -1050,13 +1053,13 @@
                             method: 'DELETE',
 
                         })
-                    .then(fetch(`/candidate/${id}/approve`,
+                    .then((res)=>{return fetch(`/candidate/${id}/approve`,
                     {
                         method: 'PUT',
                         header: { "Content-Type": "multipart/form-data" },
                         body: formData
 
-                    }))
+                    })})
                     .then(function (response) {
                         console.log(response);
                         alert("Your changes have been made to the candidate!");

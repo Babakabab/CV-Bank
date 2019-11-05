@@ -5,13 +5,12 @@ cloudinary = require('cloudinary').v2;
 
 
 //This function saves candidate into the DB, and uploads the CV
-function saveCandUpCV(req, method) {
+function saveCandUpCV(req, method,cb) {
 	let aCvURLs = [];
 
 	//Upload the CV onto the cloud
 
 	for (let i = 0; i < req.files.length; i++) {
-
 		cloudinary.uploader.upload(req.files[i].path, {
 			public_id: req.body['first-name'] + " "
 				+ req.body['last-name'] + " " +
@@ -27,20 +26,20 @@ function saveCandUpCV(req, method) {
 					if (method == "create") {
 						createCandidate(req.body, aCvURLs, function (error, candidate) {
 							if (error) {
-								console.log(error);
+								cb(error,null);
 							}
 							else {
-								console.log(candidate);
+								cb(null,candidate);
 							}
 						});
 					}
 					else if (method = "update") {
 						candidateUpdate(req.body, req.body.id, aCvURLs, function (error, candidate) {
 							if (error) {
-								console.log(error);
+								cb(err,null);
 							}
 							else {
-								console.log(candidate);
+								cb(null,candidate);
 							}
 						});
 
@@ -49,10 +48,10 @@ function saveCandUpCV(req, method) {
 						req.body.pendingEditApproval = false;
 						candidateUpdate(req.body, req.body.id, aCvURLs, function (error, candidate) {
 							if (error) {
-								console.log(error);
+								cb(error,null);
 							}
 							else {
-								console.log("candidate coming from approve method",candidate);
+								cb(null,candidate);
 							}
 						});
 
@@ -66,10 +65,10 @@ function saveCandUpCV(req, method) {
 	if (req.files.length === 0) {
 		candidateUpdate(req.body, req.body.id, [], function (error, candidate) {
 			if (error) {
-				console.long(error);
+				cb(err,null);
 			}
 			else {
-				console.log("updated candidate",candidate);
+				cb(null,candidate);
 			}
 
 

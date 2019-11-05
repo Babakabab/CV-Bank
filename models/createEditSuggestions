@@ -1,7 +1,7 @@
 const EditSuggestions     =  require('./editSuggestions'),
       ObjectId            =  require('mongodb').ObjectID,
       mcQuaigParser =  require('./mcQuaigParser');
-function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
+async function createEditSuggestions(oCandidate,_id,aCvURLs){
     const   firstName               = oCandidate['firstName'].toLowerCase(),
             lastName                = oCandidate['lastName'].toLowerCase(),
             email                   = oCandidate.email.toLowerCase(),
@@ -41,8 +41,7 @@ function createEditSuggestions(oCandidate,_id,aCvURLs,cb){
         aInterviewsInfo.push({'firmName': oCandidate[`firmName${i}`],'interviewDate':oCandidate[`interviewDateFirm${i}`]});
     }
 }   
-return new Promise((resolve,reject)=>{
-    EditSuggestions.create({
+editSuggestion = await EditSuggestions.create({
         _id,
          firstName        ,
          lastName         ,
@@ -70,11 +69,10 @@ return new Promise((resolve,reject)=>{
          notes            ,
          creationDate     ,
          aCvURLs           
-})
-.then((result)=>resolve(result))
-.catch((error)=>reject(error));
+});
 
-});       
+
+       
     
 }
 module.exports=createEditSuggestions;

@@ -3,7 +3,6 @@ Candidate = require('./candidate');
 //Then makes a query to the database and  
 function searchType(req, cb) {
     var candidateList;
-    console.log(req.body);
     const queryType = req.body['search-option'];
     if (queryType == 'name') {
 
