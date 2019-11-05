@@ -118,19 +118,25 @@ router.get("/candidate/:id/edit",isLoggedIn, (req, res) => {
 	
 
 });
-router.put("/candidate/:id/approve",(req,res)=>{});
+router.put("/candidate/:id/approve",isLoggedIn,upload.array('cv',8),(req,res)=>{
+	saveCandUpCV(req,"update",(err,info)=>{
+		if(err){console.log(err)}
+		else{console.log(info)}
+	});
+
+});
 
 router.put("/candidate/:id/edit",isLoggedIn,upload.array('cv', 8),(req,res)=>{
-	saveCandUpCV(req,"update");
+	saveCandUpCV(req,"update",(err,info)=>{
+		if(err){console.log(err)}
+		else{console.log(info)}
+	});
 });
 
 router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
 	console.log(req.params.id);
 	EditSuggestion.findOne({ _id: ObjectId(req.params.id) }).exec()
 		.then((editSuggestion) => {
-			
-			
-
 			const sDateOfInterviewUs = dateToStringParser(editSuggestion.dateOfInterviewUs),
 				  aParsedInterviewDates = [];
 			editSuggestion.aInterviewsInfo.map((interviewInfo)=>{
@@ -141,8 +147,8 @@ router.get("/candidate/:id/edit-suggestion",isLoggedIn, (req, res) => {
 			res.render('edit-candidate', { 
 				candidate: editSuggestion,
 				isEditSuggestion:true,
-				aParsedInterviewDates : aParsedInterviewDates,
-				sDateOfInterviewUs: sDateOfInterviewUs,
+				aParsedInterviewDates,
+				sDateOfInterviewUs,
 				currentUser:req.user.userType 
 				});
 		})

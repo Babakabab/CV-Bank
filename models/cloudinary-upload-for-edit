@@ -10,12 +10,12 @@ const createEditSuggestions = require('./createEditSuggestions'),
 function saveEditSuggestionUpCV(req, cb) {
 	let public_id = "".concat(
 		req.body['firstName'],
-		" ", req.body['lastName'],
+		" ", req.body['lastName'], 
 		" ", req.body.position,
 		" ", req.body.uni,
 		" page-"),
 		quality = 15;
-	let  aCvURLs  = req.body.aC;
+	let aCvURLs = req.body.aC;
 	let LAST_CV_PAGE = req.files.length - 1;
 	for (i = 0; i < req.files.length; i++) {
 		cloudinary.uploader.upload(req.files[index].path,
@@ -47,20 +47,18 @@ function saveEditSuggestionUpCV(req, cb) {
 
 
 	if (req.files.length === 0) {
-		
+
 
 		createEditSuggestions(req.body, req.body.id, aCvURLs)
 			.then(() => {
-				console.log("this is the id",req.body.id);
+				console.log("this is the id", req.body.id);
 				//flag the candidate that is pending approval
-				Candidate.findOneAndUpdate({_id:ObjectId(req.body.id)}, { $set: { pendingEditApproval: true } },{useFindAndModify:false},(err,doc)=>{
-					if(err){console.log(err);}
-					else{console.log(doc.firstName);}
+				Candidate.findOneAndUpdate({ _id: ObjectId(req.body.id) }, { $set: { pendingEditApproval: true } }, { useFindAndModify: false }, (err, doc) => {
+					if (err) { cb(err, null); }
+					else { cb(null, doc); }
 				});
 			})
-			// .then((candidate) => { 
-			// 	console.log("So this is the candidate", candidate);
-			// 	cb(null, candidate) })
+
 			.catch(error => { cb(error, null) });
 
 
