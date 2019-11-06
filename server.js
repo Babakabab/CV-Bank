@@ -20,7 +20,7 @@ const passport              = require('passport'),
 
 const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(bodyParser.json());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -90,11 +90,13 @@ router.post("/register",registerUser);
 router.get("/login", function (req, res) {
 	 res.render("login");
 	 });
-router.post("/login", passport.authenticate("local", {
+	
+router.post("/login" , passport.authenticate("local", {
 	successRedirect: '/',
 	failureRedirect: "/login"
 }), function (req, res) {
-
+	
+console.log(req.body);
 });
 router.post("/candidate/:id/delete", (req, res) => {
 	console.log(req.params);

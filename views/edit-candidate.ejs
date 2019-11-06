@@ -1035,7 +1035,9 @@
             console.log(aCvURLs);
             formData.append('aCvURLs', aCvURLs);
             let isValidated = false;
-            if (document.getElementById('firstName').value && document.getElementById('lastName').value && document.getElementById('gender').value) {
+            if (document.getElementById('firstName').value
+             && document.getElementById('lastName').value 
+             && document.getElementById('gender').value) {
                 isValidated = true;
             }
             if (emailValidator(document.getElementById('email').value)) {
@@ -1063,7 +1065,8 @@
                     .then(function (response) {
                         console.log(response);
                         alert("Your changes have been made to the candidate!");
-                        //window.location = "/";
+                        window.location = "/";
+
                     })
                     .catch((err) => { console.log(err) });
 
