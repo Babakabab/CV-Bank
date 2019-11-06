@@ -96,7 +96,7 @@ h1{
         <div class="wrapper" >
                 <div class="container">
                  <h1>Login</h1>
-                  <form action="/login" method="POST">
+                  <form id="login-info" action="">
                     <div class="group">
                       <label for="username">Username:</label>
                       <input type="username" id="username" name="username">
@@ -106,9 +106,39 @@ h1{
                       <input id="password" type="password" name="password">
                       
                     </div>
-                    <input type="submit" value="Login" id="submit">
+                    <input type="submit" value="Login" id="submit" onclick="return sendLoginInfo(event)">
                   </form>
                 </div>
               </div>
+              <script type="text/javascript">
+              function sendLoginInfo(e){
+
+                e.preventDefault();
+                console.log("yo");
+                let form = document.getElementById("login-info");
+                let loginInfo = new FormData();
+                let password = document.getElementById("password").value;
+                let username = document.getElementById("username").value.trim();
+                loginInfo.append("password",password);
+                loginInfo.append("username",username.trim());
+                const body={
+                  username,
+                  password
+                };
+                const request = new Request("/login",{
+                  method:'POST',
+                  body:JSON.stringify(body),
+                  headers: new Headers({
+                    'Content-Type':'application/json'
+                  })
+
+                });
+                fetch(request)
+                .then((res)=>{res.json})
+                .then(res=>{console.log(res);
+                window.location="/";})
+                .catch((err)=>{console.log(err)});
+              }
+              </script>
 </body>
 </html>

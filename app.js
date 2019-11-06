@@ -11,7 +11,7 @@ const express               = require('express'),
 	  mongodb               = require('mongodb');
     
 
-	
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
 	secret:"NetDanismanlik has no secrets",
 	resave: false,

@@ -17,7 +17,7 @@ function saveEditSuggestionUpCV(req, cb) {
 		quality = 15;
 	let aCvURLs = req.body.aC;
 	let LAST_CV_PAGE = req.files.length - 1;
-	for (i = 0; i < req.files.length; i++) {
+	for (let i = 0; i < req.files.length; i++) {
 		cloudinary.uploader.upload(req.files[index].path,
 			{ public_id, quality },
 			function (error, result) {
