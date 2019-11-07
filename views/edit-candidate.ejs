@@ -486,8 +486,8 @@
                                     value=<%=aParsedInterviewDates[i]%>>
 
 
-                                <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;"
-                                    onclick="deleteInterviewInfo(this)">
+                                <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterview
+                        (this)">
                             </div>
                         </div>
 
@@ -637,7 +637,6 @@
         async function myInit() {
             highlighter();
             let id = window.location.href.split("/")[4];
-            console.log(id);
 
             //get the candidate info to show when the user toggles between the suggested edit and the candidate info
             fetch(`/candidate/${id}`)
@@ -645,17 +644,18 @@
                 .catch(err => console.log(err))
                 .then((candidate) => {
                     window.candidate = candidate;
-                    if (window.candidate.sDateOfInterviewUs){
-                    window.candidate.sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs);
-                    console.log(window.candidate.sDateOfInterviewUs);
+                    if (window.candidate.sDateOfInterviewUs) {
+                        window.candidate.sDateOfInterviewUs = dateToStringParser(candidate.dateOfInterviewUs);
+                        console.log(window.candidate.sDateOfInterviewUs);
                     }
 
                     if (window.candidate.aParsedInterviewDates) {
 
-                        window.candidate.aParsedInterviewDates = window.candidate.aInterviewsInfo.map((interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) });
+                        window.candidate.aParsedInterviewDates = window.candidate.aInterviewsInfo.map(
+                            (interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) });
                         console.log(window.candidate.aParsedInterviewDates);
                     }
-                    
+
 
                 });
             fetch(`/editsuggestion/${id}`)
@@ -667,7 +667,8 @@
                     if (window.editSuggestion.aParsedInterviewDates) {
 
                         window.editSuggestion.aParsedInterviewDates = window.editSuggestion.aInterviewsInfo.map(
-                            (interviewInfo) => { dateToStringParser(interviewInfo.interviewDate) 
+                            (interviewInfo) => {
+                                dateToStringParser(interviewInfo.interviewDate)
                             });
                     }
 
@@ -742,7 +743,7 @@
 
 
         }
-        function deleteInterviewInfo(element) {
+        function deleteInterview(element) {
             console.log(element);
             $(element).parent().parent().remove();
 
@@ -773,7 +774,8 @@
 													<input type="date" name="intervieDateFirm${i}" class="form-control">
 												</label>
 												
-												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)">
+                                                <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterview
+                                    (this)">
 											</div></div>`);
                     }
                 }
@@ -794,7 +796,8 @@
 													<input type="date" name="interviewDateFirm${i}" class="form-control">
 												</label>
 												<!--<span style="font-size:em; color:red">DELETE</span>-->
-												<img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterviewInfo(this)" >
+                                                <img src='/xicon.jpeg' style="height:25px; width:25px; cursor:pointer;" onclick="deleteInterview
+                                    (this)" >
 											</div></div>`);
                     }
                 }
@@ -891,17 +894,25 @@
 
         function backToOriginal(element) {
             //console.log(element);
-            let infoName = element.parentNode.parentNode.children[0].name;
-            console.log(infoName)
-            element.parentNode.parentNode.children[0].value = window.candidate[infoName];
+            let inputElement = element.parentNode.parentNode.children[0]
+            let inputElementName = inputElement.name;
+
+            inputElement.value = window.candidate[inputElementName];
+            if (window.editSuggestion[inputElementName] != window.candidate[inputElementName]) {
+                inputElement.style.color = "black";
+
+            }
+
 
             //console.log(infoName);
         }
         function backToOriginalScore(element) {
             const infoName = element.parentNode.parentNode.children[0].name,
                 // read each field of the score and add them together to shape the final score
-                score = window.candidate['score'].wrong + " " + window.candidate['score'].empty + " " + window.candidate['score'].correct;
-            console.log(candidate);
+                score = window.candidate['score'].wrong
+                    + " " + window.candidate['score'].empty
+                    + " " + window.candidate['score'].correct;
+
             element.parentNode.parentNode.children[0].value = score;
 
 
@@ -919,14 +930,14 @@
                 inputName = element.parentNode.parentNode.children[0].name,
 
                 date = window.editSuggestion['sDateOfInterviewUs'];
-           
+
             target.value = date;
         }
         function backToOriginalDateOfInterviewFirm(element) {
             const target = element.parentNode.parentNode.children[0],
                 inputName = element.parentNode.parentNode.children[0].name,
                 date = window.candidate['sDateOfInterviewUs'];
-            console.log("in the function,", date);
+
             target.value = date;
 
         }
@@ -934,20 +945,28 @@
             const target = element.parentNode.parentNode.children[0],
                 inputName = element.parentNode.parentNode.children[0].name,
                 date = window.candidate['sDateOfInterviewUs'];
-            console.log("in the function,", date);
             target.value = date;
         }
         function showEditedVersion(element) {
+
+            const inputElement = element.parentNode.parentNode.children[0];
             //find the name of the text input so we know which one of the candidate info to call
-            infoName = element.parentNode.parentNode.children[0].name;
+
+            const inputElementName = inputElement.name;
             //set the value of the text input to the candidate info
-            element.parentNode.parentNode.children[0].value = window.editSuggestion[infoName];
+            inputElement.value = window.editSuggestion[inputElementName];
+            if (window.editSuggestion[inputElementName] != window.candidate[inputElementName]) {
+                inputElement.style.color = "#9e1f1f";
+
+            }
         }
         //Since McQuaig score is an object, we need a different function to set it's value
         function showEditedVersionScore(element) {
             const infoName = element.parentNode.parentNode.children[0].name,
                 // read each field of the score and add them together to shape the final score
-                score = editSuggestion['score'].wrong + " " + editSuggestion['score'].empty + " " + editSuggestion['score'].correct;
+                score = editSuggestion['score'].wrong
+                    + " " + editSuggestion['score'].empty
+                    + " " + editSuggestion['score'].correct;
             element.parentNode.parentNode.children[0].value = score;
 
 
@@ -957,19 +976,16 @@
 
         }
         function suggestEdit(e) {
-            console.log("yooooo")
             emailValidator(document.getElementById('email').value);
             e.preventDefault();
             let form = document.getElementById('candidate-data'),
                 formData = new FormData(form),
                 id = window.location.href.split("/")[4],
                 aCvURLs = [];
-            //Add the candidate id to the formData
             formData.append('id', id);
             formData.append('lastModified', new Date());
             for (let cvLink of document.getElementById("cvURLs").children) {
                 aCvURLs.push(cvLink.href);
-                //console.log(cvURL);
             }
             console.log(aCvURLs);
             formData.append('aCvURLs', aCvURLs);
@@ -980,12 +996,7 @@
             if (emailValidator(document.getElementById('email').value)) {
 
 
-                //console.log(document.getElementById("cvURLs").children);
                 //&& phoneNumberValidator(document.getElementById('phone-number').value
-                // for (let pair of formData.entries()) {
-                //     console.log(pair[0] + "-" + pair[1]);
-                // }
-
                 fetch(`/candidate/${id}/suggestedit`,
                     {
                         method: 'POST',
@@ -1036,8 +1047,8 @@
             formData.append('aCvURLs', aCvURLs);
             let isValidated = false;
             if (document.getElementById('firstName').value
-             && document.getElementById('lastName').value 
-             && document.getElementById('gender').value) {
+                && document.getElementById('lastName').value
+                && document.getElementById('gender').value) {
                 isValidated = true;
             }
             if (emailValidator(document.getElementById('email').value)) {
@@ -1049,19 +1060,21 @@
                     console.log(pair[0] + "-" + pair[1]);
                 }
 
-                
-                    fetch(`/editsuggestion/${id}/delete`,
-                        {
-                            method: 'DELETE',
 
-                        })
-                    .then((res)=>{return fetch(`/candidate/${id}/approve`,
+                fetch(`/editsuggestion/${id}/delete`,
                     {
-                        method: 'PUT',
-                        header: { "Content-Type": "multipart/form-data" },
-                        body: formData
+                        method: 'DELETE'
 
-                    })})
+                    })
+                    .then((res) => {
+                        return fetch(`/candidate/${id}/approve`,
+                            {
+                                method: 'PUT',
+                                header: { "Content-Type": "multipart/form-data" },
+                                body: formData
+
+                            })
+                    })
                     .then(function (response) {
                         console.log(response);
                         alert("Your changes have been made to the candidate!");

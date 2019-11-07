@@ -10,23 +10,25 @@ const candidatesInfoParser = function (files){
                      //Take the .jpg off the file name, and split
                     //them using the space in between the words
                     const candidate       = file.slice(0,-4).split(" ");
+                    console.log(candidate);
    
                         //Assign each part to the data they represent
+                        
                         const oCandidate = {
                               firstName          : candidate[0].toLowerCase(),
                               lastName           : candidate[1].toLowerCase(),
                               score              : mcQuaigParser(candidate[2]),
-                              wantedPosition     : candidate[3].toLowerCase(),
-                              uni                : candidate[4].toLowerCase(),
-                              folderName         : candidate[5].toLowerCase(),
+                              wantedPosition     : candidate[3]?candidate[3].toLowerCase():'',
+                              uni                : candidate[4]?candidate[4].toLowerCase():'',
+                              folderName         : candidate[5]?candidate[5].toLowerCase():'',
                               notes              : candidate[6]?candidate[6].toLowerCase():'',
                               aCvURLs            : [],
                               pendingEditApproval: false,
                               lastModified       : new Date()
                         };
                     
-                    candidatesArray
-            .push(oCandidate);
+                    
+                    candidatesArray.push(oCandidate);
                         });
     
     console.log(candidatesArray);
