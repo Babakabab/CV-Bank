@@ -24,6 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 //serve "public" directory
 app.use(express.static(__dirname+ '/public'));
+app.use(express.static(__dirname+ '/views/js'));
 //set the timeout
 app.use(timeout('500s'));
 app.use(router);
