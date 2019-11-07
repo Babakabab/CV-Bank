@@ -124,6 +124,7 @@ router.put("/candidate/:id/approve",isLoggedIn,upload.array('cv',8),(req,res)=>{
 	saveCandUpCV(req,"update",(err,info)=>{
 		if(err){console.log(err)}
 		else{console.log(info)}
+		res.send();
 	});
 
 });
